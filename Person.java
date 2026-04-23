@@ -16,6 +16,12 @@ public abstract class Person {
         this.phonenumber=phonenumber;
         this.password=password;
     }
+      public Person(String name, String surname, String email,String password){
+        this.name=name;
+        this.surname=surname;
+        this.email=email;
+        this.password=password;
+    }
     
  public String girisYap(String girilenEmail, String girilenSifre){
         if (this.email.equals(girilenEmail) && this.password.equals(girilenSifre)) {
@@ -32,13 +38,7 @@ public abstract class Person {
                                "Telefon: " + this.phonenumber;
         
         return profilBilgisi;
-    }
-    public String profilGuncelle(String yeniEmail, String yeniTelefon, String yeniSifre){
-        this.email=yeniEmail;
-        this.phonenumber=yeniTelefon;
-        this.password=yeniSifre;
-        return "Tebrikler! Profil bilgileriniz başarıyla güncellendi";
-    }
+   
     public String cikisYap(){
         return "Sistemden güvenli bir şekilde çıkış yapıldı. Görüşmek üzere, " + this.name + "!";
     }
