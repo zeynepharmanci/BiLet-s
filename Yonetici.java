@@ -4,36 +4,9 @@ import java.util.ArrayList;
 public class Yonetici extends Person {
     private ArrayList<Event> etkinlikListesi;
     
-    public Yonetici(String name, String surname, int age, String email, String phonenumber,String password){
-    super(name, surname,  age, email,  phonenumber, password);
+   public Yonetici(String name, String surname, String email,String password){
+    super(name, surname,email, password);
     this.etkinlikListesi = new ArrayList<>();
-}
-    public String kategoriyeGoreFiltrele(String kategori){
-        String Metin = "---" + kategori+" Etkinlikleri ---\n";
-        boolean etkinlikBulundu=false;
-        for(Event etkinlik : etkinlikListesi){
-            if (kategori.equals("Sinema") && etkinlik instanceof Sinema) {
-                Metin += etkinlik.etkinlikDetayGoster() + "\n----------------\n";
-                etkinlikBulundu = true;
-            } 
-          
-            else if (kategori.equals("Konser") && etkinlik instanceof Konser) {
-                Metin += etkinlik.etkinlikDetayGoster() + "\n----------------\n";
-                etkinlikBulundu = true;
-            }
-            else if (kategori.equals("StandUp") && etkinlik instanceof StandUp) {
-                Metin += etkinlik.etkinlikDetayGoster() + "\n----------------\n";
-                etkinlikBulundu = true;
-            } 
-            else if (kategori.equals("Tiyatro") && etkinlik instanceof Tiyatro) {
-                Metin += etkinlik.etkinlikDetayGoster() + "\n----------------\n";
-                etkinlikBulundu = true;
-            } 
-        }
-            if (!etkinlikBulundu) {
-                Metin += "Bu kategoride henüz etkinlik bulunmamaktadır.\n";
-}
-        return Metin;
     }
     public String etkinlikEkle(Event yeniEtkinlik){
         etkinlikListesi.add(yeniEtkinlik);
