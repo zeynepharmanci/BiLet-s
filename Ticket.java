@@ -40,14 +40,33 @@ public abstract class Ticket {
         System.out.println("Tarih: " + satinAlmaTarihi);
         System.out.println("--------------------");
     }
-
-    public double getOdenenFiyat() { return odenenFiyat; }
-    public void setRefunded(boolean refunded) { isRefunded = refunded; }
-
-    
+    public String getBiletKodu(){
+      return biletKodu;
+    }
     public Event getEtkinlik() {
         return etkinlik;
     }
+    public Person getMusteri(){
+      return musteri;
+    }
+    public String getKoltukNo(){
+      return koltukNo;
+    }
+    public double getOdenenFiyat() {
+      return odenenFiyat;
+    }
+    public boolean isRefunded(){
+      return isRefunded;
+    }
+    public void setRefunded(boolean refunded) { 
+      isRefunded = refunded;
+    }
+    public LocalDateTime getSatinAlmaTarihi(){
+      return satinAlmaTarihi;
+    }
+
+    
+   
 }
 
     
