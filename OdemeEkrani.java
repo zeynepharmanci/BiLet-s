@@ -7,13 +7,12 @@ import java.util.ArrayList;
 public class OdemeEkrani extends JFrame {
     
     public OdemeEkrani(double tutar, ArrayList<String> koltuklar, JFrame koltukEkrani) {
-        setTitle("BiLets - Güvenli Ödeme");
+        setTitle("BiLets - GÃ¼venli Ã–deme");
         setSize(400, 500);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
         setLayout(new BorderLayout(15, 15));
 
-        // 1. ÜST KISIM: Özet Bilgi
         JPanel pnlOzet = new JPanel(new GridLayout(2, 1));
         pnlOzet.setBackground(new Color(255, 240, 245));
         pnlOzet.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 20));
@@ -26,18 +25,17 @@ public class OdemeEkrani extends JFrame {
         pnlOzet.add(lblKoltuk);
         add(pnlOzet, BorderLayout.NORTH);
 
-        // 2. ORTA KISIM: Kart Bilgileri Formu
         JPanel pnlForm = new JPanel(new GridLayout(8, 1, 5, 5));
         pnlForm.setBorder(BorderFactory.createEmptyBorder(20, 40, 20, 40));
 
         JTextField txtSahibi = new JTextField();
-        JTextField txtKartNo = new JTextField(); // Ýpucu: MaskFormatter ile 16 hane sýnýrlanabilir
+        JTextField txtKartNo = new JTextField(); 
         JTextField txtSKT = new JTextField();
         JTextField txtCVV = new JTextField();
 
-        pnlForm.add(new JLabel("Kart Sahibi Adý Soyadý:"));
+        pnlForm.add(new JLabel("Kart Sahibi AdÃ½ SoyadÃ½:"));
         pnlForm.add(txtSahibi);
-        pnlForm.add(new JLabel("Kart Numarasý (16 Hane):"));
+        pnlForm.add(new JLabel("Kart NumarasÃ½ (16 Hane):"));
         pnlForm.add(txtKartNo);
         pnlForm.add(new JLabel("Son Kullanma Tarihi (AA/YY):"));
         pnlForm.add(txtSKT);
@@ -46,27 +44,26 @@ public class OdemeEkrani extends JFrame {
 
         add(pnlForm, BorderLayout.CENTER);
 
-        // 3. ALT KISIM: Butonlar
         JPanel pnlAlt = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 15));
         
-        JButton btnIptal = new JButton("Geri Dön");
+        JButton btnIptal = new JButton("Geri DÃ¶n");
         btnIptal.addActionListener(e -> {
             koltukEkrani.setVisible(true);
             this.dispose();
         });
 
-        JButton btnOde = new JButton("Ödemeyi Onayla");
+        JButton btnOde = new JButton("Ã–demeyi Onayla");
         btnOde.setBackground(new Color(34, 139, 34));
         btnOde.setForeground(Color.WHITE);
         btnOde.setPreferredSize(new Dimension(150, 40));
 
         btnOde.addActionListener(e -> {
-            // Basit bir doðrulama
+            // Basit bir doÃ°rulama
             if (txtKartNo.getText().length() < 16 || txtCVV.getText().length() < 3) {
-                JOptionPane.showMessageDialog(this, "Lütfen kart bilgilerini eksiksiz giriniz!", "Hata", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "LÃ¼tfen kart bilgilerini eksiksiz giriniz!", "Hata", JOptionPane.ERROR_MESSAGE);
             } else {
-                JOptionPane.showMessageDialog(this, "Ödemeniz baþarýyla alýndý!\nÝyi eðlenceler dileriz.", "Baþarýlý", JOptionPane.INFORMATION_MESSAGE);
-                System.exit(0); // Programý baþarýyla bitir
+                JOptionPane.showMessageDialog(this, "Ã–demeniz baÃ¾arÃ½yla alÃ½ndÃ½!\nÃyi eÃ°lenceler dileriz.", "BaÃ¾arÃ½lÃ½", JOptionPane.INFORMATION_MESSAGE);
+                System.exit(0); 
             }
         });
 
