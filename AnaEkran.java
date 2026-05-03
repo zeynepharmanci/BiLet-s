@@ -8,27 +8,25 @@ public class AnaEkran extends JFrame {
     JScrollPane scroll;
 
     public AnaEkran() {
-        setTitle("BiLets - Etkinlik Seçimi");
+        setTitle("BiLets - Etkinlik SeÃ§imi");
         setSize(1000, 700);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLayout(new BorderLayout()); // Ana düzen
+        setLayout(new BorderLayout()); 
 
-        // 1. ÜST PANEL (Butonlar için)
         pnlUst = new JPanel();
-        pnlUst.setBackground(new Color(255, 230, 240)); // Senin pembe teman
-        String[] kategoriler = {"Sinema", "Konser", "StandUp", "Tiyatro", "Tümü"};
+        pnlUst.setBackground(new Color(255, 230, 240)); 
+        String[] kategoriler = {"Sinema", "Konser", "StandUp", "Tiyatro", "TÃ¼mÃ¼"};
         for (String kat : kategoriler) {
             JButton btn = new JButton(kat);
-            btn.addActionListener(e -> filtrele(kat)); // Butona basýnca filtreleme yapacak
+            btn.addActionListener(e -> filtrele(kat)); // filtreleme
             pnlUst.add(btn);
         }
         add(pnlUst, BorderLayout.NORTH);
-
-        // 2. ORTA PANEL (Etkinlik Satýrlarý için)
-        pnlOrta = new JPanel();
-        pnlOrta.setLayout(new BoxLayout(pnlOrta, BoxLayout.Y_AXIS)); // Alt alta dizilim
         
-        scroll = new JScrollPane(pnlOrta); // Kaydýrma çubuðu
+        pnlOrta = new JPanel();
+        pnlOrta.setLayout(new BoxLayout(pnlOrta, BoxLayout.Y_AXIS));
+        
+        scroll = new JScrollPane(pnlOrta); 
         add(scroll, BorderLayout.CENTER);
 
         setVisible(true);
