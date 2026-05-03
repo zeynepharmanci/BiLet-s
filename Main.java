@@ -4,28 +4,27 @@ import javax.swing.SwingUtilities;
 
 public class Main {
     public static void main(String[] args) {
-        // 1. Önce VeriDeposu'na örnek veriler ekleyelim ki liste boş kalmasın
+
         verileriYukle();
 
-        // 2. Arayüzü (GUI) başlat
         SwingUtilities.invokeLater(() -> {
             new GirisEkrani().setVisible(true);
         });
     }
 
     private static void verileriYukle() {
-        // Test Kullanıcısı
-        VeriDeposu.kayitliKullanicilar.add(new Kullanici("Gazi", "Öğrencisi", 20, "gazi@edu.tr", "5550001122", "sifre123"));
 
-        // Örnek Etkinlikler (10x10 koltuk düzeni ile)
+        VeriDeposu.kayitliKullanicilar.add(new Kullanici("Gazi", "Ã–ÄŸrencisi", 20, "gazi@edu.tr", "5550001122", "sifre123"));
+
+        // Ã–rnek Etkinlikler (10x10 koltuk dÃ¼zeni ile)
         boolean[][] koltuklar1 = new boolean[10][10];
         boolean[][] koltuklar2 = new boolean[10][10];
         boolean[][] koltuklar3 = new boolean[10][10];
         boolean[][] koltuklar4 = new boolean[10][10];
 
         VeriDeposu.etkinlikListesi.add(new Sinema("Avatar: Suyun Yolu", "Ankara", 150.0, koltuklar1, "James Cameron", 190, "Sam Worthington", true, "Bilim Kurgu"));
-        VeriDeposu.etkinlikListesi.add(new Konser("Sertab Erener", "İstanbul", 400.0, koltuklar2, "Sertab Erener", "Pop"));
-        VeriDeposu.etkinlikListesi.add(new Tiyatro("Bir Delinin Hatıra Defteri", "İzmir", 200.0, koltuklar3, "1", "Erdal Beşikçioğlu", "Dram"));
-        VeriDeposu.etkinlikListesi.add(new StandUp("Doğu Demirkol", "Ankara", 300.0, koltuklar4, "Doğu Demirkol", 18, "Günlük Hayat"));
+        VeriDeposu.etkinlikListesi.add(new Konser("Sertab Erener", "Ä°stanbul", 400.0, koltuklar2, "Sertab Erener", "Pop"));
+        VeriDeposu.etkinlikListesi.add(new Tiyatro("Bir Delinin HatÄ±ra Defteri", "Ä°zmir", 200.0, koltuklar3, "1", "Erdal BeÅŸikÃ§ioÄŸlu", "Dram"));
+        VeriDeposu.etkinlikListesi.add(new StandUp("DoÄŸu Demirkol", "Ankara", 300.0, koltuklar4, "DoÄŸu Demirkol", 18, "GÃ¼nlÃ¼k Hayat"));
     }
 }
