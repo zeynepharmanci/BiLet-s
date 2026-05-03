@@ -2,8 +2,7 @@
 package BiLets;
 
     public class ExceptionClass {
-    // 1. İsim ve Soyisim Kontrolü
-    // (İkisi de aynı kurala tabi olduğu için tek metotla hallediyoruz)
+    //İsim ve Soyisim kontrolü
     public static void kontrolEtIsimSoyisim(String metin, String alanAdi) {
         if (metin == null || metin.trim().isEmpty()) {
             throw new IllegalArgumentException(alanAdi + " alanı boş bırakılamaz.");
@@ -15,14 +14,14 @@ package BiLets;
             throw new IllegalArgumentException(alanAdi + " sadece harflerden oluşmalıdır.");
         }
     }
-    // 2. Yaş Kontrolü
+    //Yaş kontrolü
     public static void kontrolEtYas(int yas) {
         if (yas < 13 || yas > 120) {
             throw new IllegalArgumentException("Sisteme kayıt olmak için 13 yaşından büyük olmalısınız.");
         }
     }
 
-    // 3. E-mail Kontrolü
+    //E-mail kontrolü
     public static void kontrolEtEmail(String email) {
         if (email == null || email.trim().isEmpty()) {
             throw new IllegalArgumentException("E-mail alanı boş bırakılamaz.");
@@ -34,19 +33,19 @@ package BiLets;
         }
     }
 
-    // 4. Telefon Numarası Kontrolü
+    //Telefon numarası kontrolü
     public static void kontrolEtTelefon(String telefon) {
         if (telefon == null || telefon.trim().isEmpty()) {
             throw new IllegalArgumentException("Telefon numarası boş bırakılamaz.");
         }
         
-        // Sadece rakamlardan oluşan 10 haneli numara kontrolü (Örn: 5551234567)
+        // Sadece rakamlardan oluşan 10 haneli numara kontrolü 
         if (!telefon.matches("^[0-9]{10}$")) {
             throw new IllegalArgumentException("Telefon numarası 10 haneli olmalı ve sadece rakam içermelidir (Başında 0 olmadan).");
         }
     }
 
-    // 5. Şifre Kontrolü
+    //Şifre kontrolü
     public static void kontrolEtSifre(String sifre) {
         if (sifre == null || sifre.trim().isEmpty()) {
             throw new IllegalArgumentException("Şifre alanı boş bırakılamaz.");
@@ -57,57 +56,52 @@ package BiLets;
             throw new IllegalArgumentException("Şifre en az 8 karakter olmalı, harf ve rakam içermelidir.");
         }
     }
-    // --- EVENT (ETKİNLİK) SINIFI KONTROLLERİ ---
 
-    // 6. Etkinlik Adı Kontrolü
+    //Etkinlik Adı kontrolü
     public static void kontrolEtEtkinlikAdi(String etkinlikAdi) {
         if (etkinlikAdi == null || etkinlikAdi.trim().isEmpty()) {
             throw new IllegalArgumentException("Etkinlik adı boş bırakılamaz.");
         }
-        // Not: Etkinlik adında sayı veya sembol olabilir (Örn: "Rock Fest 2024!"). 
-        // Bu yüzden sadece boş mu diye kontrol etmek yeterlidir.
+       
     }
 
-    // 7. Şehir Kontrolü
+    //Şehir kontrolü
     public static void kontrolEtSehir(String sehir) {
         if (sehir == null || sehir.trim().isEmpty()) {
             throw new IllegalArgumentException("Şehir alanı boş bırakılamaz.");
         }
         
-        // Şehir isimleri sadece harflerden (ve boşluklardan) oluşmalıdır.
+        // Şehir isimleri sadece harflerden ve boşluklardan oluşmalıdır.
         String regex = "^[a-zA-ZçÇğĞıİöÖşŞüÜ\\s]+$";
         if (!sehir.matches(regex)) {
             throw new IllegalArgumentException("Şehir adı sadece harflerden oluşmalıdır.");
         }
     }
 
-    // 8. Fiyat Kontrolü
+    //Fiyat kontrolü
     public static void kontrolEtFiyat(double fiyat) {
         if (fiyat < 0) {
             throw new IllegalArgumentException("Etkinlik fiyatı 0'dan küçük (negatif) olamaz. Girilen: " + fiyat);
         }
     }
 
-    // 9. Koltuk Matrisi Kontrolü
+    // Koltuk Matrisi kontrolü
     public static void kontrolEtKoltuklar(boolean[][] seats) {
         // Matrisin hiç oluşturulmaması (null) veya 0 satır/0 sütun ile oluşturulması hatadır.
         if (seats == null || seats.length == 0 || seats[0].length == 0) {
             throw new IllegalArgumentException("Koltuk düzeni geçersiz veya oluşturulmamış.");
         }
     }
-    // ==========================================
-    // --- TICKET (BİLET) SINIFI KONTROLLERİ ---
-    // ==========================================
 
-    // 10. Nesne (Object) Kontrolü (Müşteri ve Etkinlik null olamaz)
+    //Nesne kontrolü 
     public static void kontrolEtNesne(Object nesne, String nesneAdi) {
         if (nesne == null) {
             throw new IllegalArgumentException(nesneAdi + " bilgisi boş (null) olamaz. Geçerli bir kayıt seçilmelidir.");
         }
     }
 
-    // 11. Genel Metin Kontrolü (Bilet kodu, Koltuk No vb. için)
-    // (Bilet kodunda ve koltukta sayı/harf karışık olabileceği için sadece boşluk kontrolü yapıyoruz)
+    //Genel Metin kontrolü 
+    
     public static void kontrolEtGenelMetin(String metin, String alanAdi) {
         if (metin == null || metin.trim().isEmpty()) {
             throw new IllegalArgumentException(alanAdi + " alanı boş bırakılamaz.");
