@@ -11,20 +11,18 @@ public class KoltukSecimEkrani extends JFrame {
     private double toplamTutar = 0;
 
     public KoltukSecimEkrani(Etkinlik e, JFrame detayEkrani) {
-        // Fiyatý String'den sayýya çevirelim (Örn: "150 TL" -> 150)
         try {
             this.biletFiyati = Integer.parseInt(e.getFiyat().replaceAll("[^0-9]", ""));
         } catch (Exception ex) {
             this.biletFiyati = 0; // Hata durumunda 0 al
         }
         
-        setTitle(e.getIsim() + " - Koltuk Seçimi");
+        setTitle(e.getIsim() + " - Koltuk SeÃ§imi");
         setSize(800, 700);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
         setLayout(new BorderLayout(10, 10));
 
-        // 1. ÜST KISIM: SAHNE
         JLabel lblSahne = new JLabel("SAHNE", SwingConstants.CENTER);
         lblSahne.setOpaque(true);
         lblSahne.setBackground(Color.DARK_GRAY);
@@ -33,7 +31,6 @@ public class KoltukSecimEkrani extends JFrame {
         lblSahne.setPreferredSize(new Dimension(800, 50));
         add(lblSahne, BorderLayout.NORTH);
 
-        // 2. ORTA KISIM: 10x10 KOLTUKLAR
         JPanel pnlSalon = new JPanel(new GridLayout(10, 10, 5, 5));
         pnlSalon.setBorder(BorderFactory.createEmptyBorder(20, 50, 20, 50));
 
@@ -47,11 +44,11 @@ public class KoltukSecimEkrani extends JFrame {
 
                 btnKoltuk.addActionListener(event -> {
                     if (btnKoltuk.getBackground() == Color.WHITE) {
-                        btnKoltuk.setBackground(new Color(255, 0, 127)); // Seçilince pembe
+                        btnKoltuk.setBackground(new Color(255, 0, 127)); // SeÃ§ilince pembe
                         btnKoltuk.setForeground(Color.WHITE);
                         seciliKoltuklar.add(koltukNo);
                     } else {
-                        btnKoltuk.setBackground(Color.WHITE); // Ýptal edilince beyaz
+                        btnKoltuk.setBackground(Color.WHITE); // Ãptal edilince beyaz
                         btnKoltuk.setForeground(Color.BLACK);
                         seciliKoltuklar.remove(koltukNo);
                     }
@@ -62,11 +59,10 @@ public class KoltukSecimEkrani extends JFrame {
         }
         add(pnlSalon, BorderLayout.CENTER);
 
-        // 3. ALT KISIM: ÖZET VE AKSÝYON BUTONLARI
         JPanel pnlAlt = new JPanel(new BorderLayout());
         pnlAlt.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 20));
 
-        lblOzet = new JLabel("Seçili Koltuklar: - | Toplam: 0 TL");
+        lblOzet = new JLabel("SeÃ§ili Koltuklar: - | Toplam: 0 TL");
         lblOzet.setFont(new Font("Segoe UI", Font.BOLD, 16));
 
         JPanel pnlAksiyon = new JPanel(new FlowLayout(FlowLayout.RIGHT));
@@ -77,19 +73,17 @@ public class KoltukSecimEkrani extends JFrame {
             this.dispose();
         });
 
-        JButton btnOdeme = new JButton("Ödemeye Geç");
-        btnOdeme.setBackground(new Color(34, 139, 34)); // Yeþil renk
+        JButton btnOdeme = new JButton("Ã–demeye GeÃ§");
+        btnOdeme.setBackground(new Color(34, 139, 34)); // YeÃ¾il renk
         btnOdeme.setForeground(Color.WHITE);
         btnOdeme.setFocusPainted(false);
-        
-        // ÖDEME EKRANINA GEÇÝÞ (Yeni Baðlantý)
+
         btnOdeme.addActionListener(ev -> {
             if(seciliKoltuklar.isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Lütfen en az bir koltuk seçiniz!", "Uyarý", JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(this, "LÃ¼tfen en az bir koltuk seÃ§iniz!", "UyarÄ±", JOptionPane.WARNING_MESSAGE);
             } else {
-                // Ödeme ekranýný açýyoruz ve gerekli bilgileri gönderiyoruz
                 new OdemeEkrani(toplamTutar, seciliKoltuklar, this);
-                this.setVisible(false); // Koltuk seçimini gizle
+                this.setVisible(false);
             }
         });
 
@@ -106,6 +100,6 @@ public class KoltukSecimEkrani extends JFrame {
     private void ozetiGuncelle() {
         toplamTutar = seciliKoltuklar.size() * biletFiyati;
         String koltuklarStr = seciliKoltuklar.isEmpty() ? "-" : String.join(", ", seciliKoltuklar);
-        lblOzet.setText("Seçili Koltuklar: " + koltuklarStr + " | Toplam: " + toplamTutar + " TL");
+        lblOzet.setText("SeÃ§ili Koltuklar: " + koltuklarStr + " | Toplam: " + toplamTutar + " TL");
     }
 }
