@@ -6,31 +6,29 @@ import java.util.ArrayList;
 
 public class BiletEkrani extends JFrame {
     private JPanel pnlListe;
-    private JPanel pnlSehirler; // Şehir butonlarının olduğu panel
+    private JPanel pnlSehirler; 
     private ArrayList<Etkinlik> tumEtkinlikler;
     
-    // Filtreleme için durum değişkenleri
-    private String seciliKategori = "Tümü";
-    private String seciliSehir = "Tüm Şehirler";
+    private String seciliKategori = "TÃ¼mÃ¼";
+    private String seciliSehir = "TÃ¼m Ãehirler";
 
     public BiletEkrani() {
-        setTitle("BiLets - Etkinlik Seçimi");
+        setTitle("BiLets - Etkinlik SeÃ§imi");
         setSize(1000, 800);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         setLayout(new BorderLayout());
 
-        // 1. VERİLERİ HAZIRLA
+ 
         verileriOlustur();
 
-        // 2. ÜST PANEL (Kategori ve Şehir Butonları)
-        JPanel pnlUstAna = new JPanel(new GridLayout(2, 1)); // İki satır: Üstte Kategori, Altta Şehir
-        
-        // KATEGORİ SATIRI
+
+        JPanel pnlUstAna = new JPanel(new GridLayout(2, 1)); 
+
         JPanel pnlKategoriler = new JPanel(new FlowLayout(FlowLayout.CENTER, 15, 10));
         pnlKategoriler.setBackground(new Color(255, 240, 245));
         
-        String[] kategoriler = {"Tümü", "Sinema", "Konser", "StandUp", "Tiyatro"};
+        String[] kategoriler = {"TÃ¼mÃ¼", "Sinema", "Konser", "StandUp", "Tiyatro"};
         for (String kat : kategoriler) {
             JButton btn = new JButton(kat);
             btn.setPreferredSize(new Dimension(110, 35));
@@ -39,33 +37,32 @@ public class BiletEkrani extends JFrame {
             
             btn.addActionListener(e -> {
                 seciliKategori = kat;
-                // Kategori butonlarında renk değişimi
+
                 for(Component c : pnlKategoriler.getComponents()) c.setBackground(Color.WHITE);
                 btn.setBackground(new Color(255, 180, 210));
                 listeyiGuncelle();
             });
             pnlKategoriler.add(btn);
         }
-        
-     // BiletEkrani.java içindeki pnlKategoriler döngüsünden sonra ekleyebilirsin
-        JButton btnGeri = new JButton("<- Ana Menü");
+
+        JButton btnGeri = new JButton("<- Ana MenÃ¼");
         btnGeri.setPreferredSize(new Dimension(130, 35));
         btnGeri.setBackground(new Color(200, 200, 200)); // Gri tonu
         btnGeri.setFocusPainted(false);
 
         btnGeri.addActionListener(e -> {
-            new KullaniciPaneli(); // Kullanıcı paneline geri döner
-            this.dispose();        // Bilet ekranını kapatır
+            new KullaniciPaneli(); 
+            this.dispose();        
         });
 
-        // Butonu kategori paneline ekle
+
         pnlKategoriler.add(btnGeri);
 
-        // ŞEHİR SATIRI
+
         pnlSehirler = new JPanel(new FlowLayout(FlowLayout.CENTER, 15, 10));
         pnlSehirler.setBackground(new Color(245, 245, 245));
         
-        String[] sehirler = {"Tüm Şehirler", "Ankara", "İstanbul", "İzmir"};
+        String[] sehirler = {"TÃ¼m Ãehirler", "Ankara", "Ãstanbul", "Ãzmir"};
         for (String sehir : sehirler) {
             JButton btnSehir = new JButton(sehir);
             btnSehir.setPreferredSize(new Dimension(110, 30));
@@ -74,9 +71,8 @@ public class BiletEkrani extends JFrame {
             
             btnSehir.addActionListener(e -> {
                 seciliSehir = sehir;
-                // Şehir butonlarında renk değişimi
                 for(Component c : pnlSehirler.getComponents()) c.setBackground(Color.WHITE);
-                btnSehir.setBackground(new Color(180, 210, 255)); // Şehre özel mavi tonu
+                btnSehir.setBackground(new Color(180, 210, 255));
                 listeyiGuncelle();
             });
             pnlSehirler.add(btnSehir);
@@ -86,7 +82,7 @@ public class BiletEkrani extends JFrame {
         pnlUstAna.add(pnlSehirler);
         add(pnlUstAna, BorderLayout.NORTH);
 
-        // 3. ORTA PANEL (Liste)
+   
         pnlListe = new JPanel();
         pnlListe.setLayout(new BoxLayout(pnlListe, BoxLayout.Y_AXIS));
         pnlListe.setBackground(Color.WHITE);
@@ -95,26 +91,26 @@ public class BiletEkrani extends JFrame {
         scroll.setBorder(null);
         add(scroll, BorderLayout.CENTER);
 
-        listeyiGuncelle(); // İlk açılış
+        listeyiGuncelle();
         setVisible(true);
     }
 
     private void verileriOlustur() {
         tumEtkinlikler = new ArrayList<>();
         tumEtkinlikler.add(new Etkinlik("Avatar: Suyun Yolu", "Ankara", "Ankara", "150 TL", "Sinema"));
-        tumEtkinlikler.add(new Etkinlik("Sertab Erener", "Harbiye", "İstanbul", "400 TL", "Konser"));
-        tumEtkinlikler.add(new Etkinlik("Bir Delinin Hatıra Defteri", "İzmir", "İzmir", "200 TL", "Tiyatro"));
-        tumEtkinlikler.add(new Etkinlik("Doğu Demirkol", "Ankara", "Ankara", "300 TL", "StandUp"));
+        tumEtkinlikler.add(new Etkinlik("Sertab Erener", "Harbiye", "Ãstanbul", "400 TL", "Konser"));
+        tumEtkinlikler.add(new Etkinlik("Bir Delinin HatÃ½ra Defteri", "Ãzmir", "Ãzmir", "200 TL", "Tiyatro"));
+        tumEtkinlikler.add(new Etkinlik("DoÃ°u Demirkol", "Ankara", "Ankara", "300 TL", "StandUp"));
         tumEtkinlikler.add(new Etkinlik("Madrigal", "Jolly Joker", "Ankara", "250 TL", "Konser"));
     }
 
-    // ARTIK İKİ FİLTREYE BİRDEN BAKIYOR
+ 
     private void listeyiGuncelle() {
         pnlListe.removeAll();
 
         for (Etkinlik e : tumEtkinlikler) {
-            boolean katUygun = seciliKategori.equals("Tümü") || e.getKategori().equals(seciliKategori);
-            boolean sehirUygun = seciliSehir.equals("Tüm Şehirler") || e.getSehir().equals(seciliSehir);
+            boolean katUygun = seciliKategori.equals("TÃ¼mÃ¼") || e.getKategori().equals(seciliKategori);
+            boolean sehirUygun = seciliSehir.equals("TÃ¼m Ãehirler") || e.getSehir().equals(seciliSehir);
 
             if (katUygun && sehirUygun) {
                 pnlListe.add(Box.createVerticalStrut(15));
