@@ -5,7 +5,7 @@ public class Etkinlik {
     private String mekan;
     private String sehir;
     private String fiyat;
-    private String kategori; // "Konser", "Sinema", "Tiyatro" vb.
+    private String kategori; 
 
     public Etkinlik(String isim, String mekan, String sehir, String fiyat, String kategori) {
         this.isim = isim;
@@ -15,7 +15,7 @@ public class Etkinlik {
         this.kategori = kategori;
     }
 
-    // Bilgileri geri almak için (Getter)
+    // getterler
     public String getIsim() { return isim; }
     public String getMekan() { return mekan; }
     public String getSehir() { return sehir; }
