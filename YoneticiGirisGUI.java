@@ -43,7 +43,7 @@ public class YoneticiGirisGUI extends JFrame {
                 String email = txtEmail.getText();
                 String sifre = new String(txtSifre.getPassword());
 
-                if (email.equals("nida@admin.com") && sifre.equals("1234")) {
+                if (email.equals("admin@gazi.com") && sifre.equals("1234")) {
                     JOptionPane.showMessageDialog(null, "Giriş Başarılı! Yönetici Paneline Yönlendiriliyorsunuz.");
 
                     new YoneticiPaneliGUI().setVisible(true); 
