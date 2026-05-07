@@ -5,17 +5,16 @@ import java.awt.*;
 
 public class EtkinlikSatiri extends JPanel {
     
-    public EtkinlikSatiri(Etkinlik e) {
+    public EtkinlikSatiri(Etkinlik e) { 
         setLayout(new BorderLayout());
         setBackground(Color.WHITE);
-        
+
         setBorder(BorderFactory.createCompoundBorder(
             BorderFactory.createLineBorder(new Color(255, 0, 127), 2),
             BorderFactory.createEmptyBorder(15, 15, 15, 15)
         ));
 
         setMaximumSize(new Dimension(1200, 100));
-
         JLabel lblBilgi = new JLabel(e.getIsim() + " - " + e.getSehir() + " - " + e.getFiyat());
         lblBilgi.setFont(new Font("Segoe UI", Font.BOLD, 14));
 
@@ -27,9 +26,8 @@ public class EtkinlikSatiri extends JPanel {
 
         btnBilet.addActionListener(event -> {
             JFrame anaPencere = (JFrame) SwingUtilities.getWindowAncestor(this);
-
             new DetayEkrani(e, anaPencere);
-
+            
             if (anaPencere != null) {
                 anaPencere.setVisible(false);
             }
