@@ -1,9 +1,14 @@
 package BiLets;
+
 import java.util.ArrayList;
+
 public class VeriDeposu {
     public static ArrayList<Event> etkinlikListesi = new ArrayList<>();
-    public static ArrayList<Person> kullaniciListesi = new ArrayList<>();
+    public static ArrayList<Kullanici> kullaniciListesi = new ArrayList<>();
+
     public static ArrayList<Ticket> biletListesi = new ArrayList<>();
+	public static Object aktifKullanici;
+
     
     public static Person sistemeGirisYap(String email, String sifre) {
         for (Person p : kullaniciListesi) {
