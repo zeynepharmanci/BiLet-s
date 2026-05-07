@@ -1,8 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
-package bilets;
+package BiLets;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -45,6 +41,29 @@ public class DosyaYönetimi implements IVeriDepolama {
         return liste;
     }
 
-    @Override public void verileriKaydet(ArrayList<Event> liste) { /* ... */ }
-    @Override public ArrayList<Event> verileriYukle() { return new ArrayList<>(); }
+    private final String ETKINLIK_DOSYASI = "etkinlikler.dat";
+
+    @Override
+    public void verileriKaydet(ArrayList<Event> liste) {
+        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(ETKINLIK_DOSYASI))) {
+            oos.writeObject(liste);
+            System.out.println("Etkinlikler başarıyla dosyaya kaydedildi.");
+        } catch (IOException e) {
+            System.err.println("Etkinlik yazma hatası: " + e.getMessage());
+        }
+    }
+
+    @Override
+    public ArrayList<Event> verileriYukle() {
+        ArrayList<Event> liste = new ArrayList<>();
+        File dosya = new File(ETKINLIK_DOSYASI);
+        if (!dosya.exists()) return liste; 
+
+        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(dosya))) {
+            liste = (ArrayList<Event>) ois.readObject();
+        } catch (IOException | ClassNotFoundException e) {
+            System.err.println("Etkinlik okuma hatası: " + e.getMessage());
+        }
+        return liste;
+    }
 }
