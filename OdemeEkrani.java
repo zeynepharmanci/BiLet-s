@@ -2,6 +2,8 @@ package BiLets;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
 import java.util.ArrayList;
 
 public class OdemeEkrani extends JFrame {
@@ -62,8 +64,27 @@ public class OdemeEkrani extends JFrame {
             if (txtKartNo.getText().length() < 16 || txtCVV.getText().length() < 3) {
                 JOptionPane.showMessageDialog(this, "Lütfen kart bilgilerini eksiksiz giriniz!", "Hata", JOptionPane.ERROR_MESSAGE);
             } else {
+
+                try {
+
+                    String etkinlikAdi = koltukEkrani.getTitle().replace(" - Koltuk Seçimi", "");
+                    String email = ((Person)VeriDeposu.aktifKullanici).getEmail();
+                    String koltuklarStr = String.join(",", koltuklar);
+
+                    String kayit = email + "|" + etkinlikAdi + "|" + koltuklarStr + "|" + tutar;        
+                    BufferedWriter bw = new BufferedWriter(new FileWriter("bilet_gecmisi.txt", true));
+                    bw.write(kayit);
+                    bw.newLine();
+                    bw.close();
+                } catch(Exception ex) {
+                    System.out.println("Bilet kaydedilemedi.");
+                }
+
                 JOptionPane.showMessageDialog(this, "Ödemeniz başarıyla alındı!\nİyi eğlenceler dileriz.", "Başarılı", JOptionPane.INFORMATION_MESSAGE);
-                System.exit(0); 
+
+                new KullaniciPaneli().setVisible(true);
+                koltukEkrani.dispose(); 
+                this.dispose(); 
             }
         });
 
