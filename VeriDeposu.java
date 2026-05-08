@@ -1,18 +1,24 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package BiLets;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class VeriDeposu {
     public static ArrayList<Event> etkinlikListesi = new ArrayList<>();
     public static ArrayList<Kullanici> kullaniciListesi = new ArrayList<>();
-
     public static ArrayList<Ticket> biletListesi = new ArrayList<>();
-	public static Object aktifKullanici;
+    public static Person aktifKullanici;
 
+    // YENİ: Etkinlik Adı -> O etkinliğin satılan koltuklarının listesi
+    public static HashMap<String, ArrayList<String>> doluKoltuklar = null; 
+
+    // YENİ: Main'e dokunmadan arka planda koltukları dosyadan otomatik çeken zeka
+    public static HashMap<String, ArrayList<String>> getDoluKoltuklar() {
+        if (doluKoltuklar == null) {
+            doluKoltuklar = new DosyaYonetimi().doluKoltuklariYukle();
+        }
+        return doluKoltuklar;
+    }
     
     public static Person sistemeGirisYap(String email, String sifre) {
         for (Person p : kullaniciListesi) {
