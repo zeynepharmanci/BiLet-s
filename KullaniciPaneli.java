@@ -2,19 +2,19 @@ package BiLets;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
 
 public class KullaniciPaneli extends JFrame {
 
-    /**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	public KullaniciPaneli() {
+    public KullaniciPaneli() {
 
         if (VeriDeposu.aktifKullanici == null) {
             JOptionPane.showMessageDialog(null, "Lütfen önce giriş yapın!");
-            new GirisEkrani();
+            new GirisEkrani().setVisible(true);
             return;
         }
 
@@ -48,16 +48,49 @@ public class KullaniciPaneli extends JFrame {
         });
 
         btnProfil.addActionListener(e -> {
-        	JOptionPane.showMessageDialog(null, ((Person) VeriDeposu.aktifKullanici).profilGoruntule(), "Profil Bilgileri", JOptionPane.INFORMATION_MESSAGE, null);   
+            JOptionPane.showMessageDialog(null, ((Person) VeriDeposu.aktifKullanici).profilGoruntule(), "Profil Bilgileri", JOptionPane.INFORMATION_MESSAGE, null);   
          });
 
         btnBiletlerim.addActionListener(e -> {
-            JOptionPane.showMessageDialog(this, "Henüz satın alınmış biletiniz bulunmamaktadır.", "Biletlerim", JOptionPane.PLAIN_MESSAGE);
+            StringBuilder biletlerStr = new StringBuilder();
+            try {
+                File file = new File("bilet_gecmisi.txt");
+                if(file.exists()) {
+                    BufferedReader br = new BufferedReader(new FileReader(file));
+                    String line;
+                    String aktifEmail = ((Person)VeriDeposu.aktifKullanici).getEmail();
+                    
+                    while((line = br.readLine()) != null) {
+                        String[] data = line.split("\\|");
+                        if(data[0].equals(aktifEmail)) { 
+                            biletlerStr.append("🎭 Etkinlik: ").append(data[1]).append("\n");
+                            biletlerStr.append("🪑 Koltuk(lar): ").append(data[2]).append("\n");
+                            biletlerStr.append("💳 Tutar: ").append(data[3]).append(" TL\n");
+                            biletlerStr.append("---------------------------------\n");
+                        }
+                    }
+                    br.close();
+                }
+            } catch(Exception ex) {}
+
+            if(biletlerStr.length() == 0) {
+                JOptionPane.showMessageDialog(this, "Henüz satın alınmış biletiniz bulunmamaktadır.", "Biletlerim", JOptionPane.PLAIN_MESSAGE);
+            } else {
+                JTextArea txtArea = new JTextArea(biletlerStr.toString());
+                txtArea.setEditable(false);
+                txtArea.setFont(new Font("Monospaced", Font.PLAIN, 14));
+                txtArea.setBackground(new Color(255, 240, 245));
+                
+                JScrollPane scrollPane = new JScrollPane(txtArea);
+                scrollPane.setPreferredSize(new Dimension(300, 250));
+                
+                JOptionPane.showMessageDialog(this, scrollPane, "🎟️ Satın Aldığım Biletler", JOptionPane.PLAIN_MESSAGE);
+            }
         });
 
         btnCikis.addActionListener(e -> {
             VeriDeposu.aktifKullanici = null; 
-            new GirisEkrani();
+            new GirisEkrani().setVisible(true);
             this.dispose();
         });
 
@@ -70,7 +103,6 @@ public class KullaniciPaneli extends JFrame {
         add(pnlMerkez);
         setVisible(true);
     }
-
 
     private void styleButton(JButton btn) {
         btn.setPreferredSize(new Dimension(250, 40));
