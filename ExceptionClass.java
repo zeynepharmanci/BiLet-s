@@ -16,12 +16,28 @@ package BiLets;
         }
     }
 
-    public static void kontrolEtYas(int yas) {
-        if (yas < 13 || yas > 120) {
-            throw new IllegalArgumentException("Sisteme kayıt olmak için 13 yaşından büyük olmalısınız.");
+    public static int kontrolEtYas(String yasMetni) {
+        if (yasMetni == null || yasMetni.trim().isEmpty()) {
+            throw new IllegalArgumentException("Yaş alanı boş bırakılamaz.");
         }
-    }
+        
+        int yas;
+        try {
+            yas = Integer.parseInt(yasMetni.trim());
+        } catch (NumberFormatException e) {
+            throw new IllegalArgumentException("Lütfen yaşınızı sadece tam sayı olarak giriniz (Örn: 20).");
+        }
 
+        // Metin başarıyla sayıya çevrildiyse, aşağıdaki sayı kontrolüne (2. metoda) gönderir
+        return kontrolEtYas(yas); 
+    }
+        // 2. Nesne içinden (Person.setAge) gelen sayı formatındaki yaş kontrolü
+        public static int kontrolEtYas(int yas) {
+         if (yas < 13 || yas > 120) {
+            throw new IllegalArgumentException("Lütfen geçerli bir yaş giriniz.");
+        }
+        return yas;
+    }
     public static void kontrolEtEmail(String email) {
         if (email == null || email.trim().isEmpty()) {
             throw new IllegalArgumentException("E-mail alanı boş bırakılamaz.");
