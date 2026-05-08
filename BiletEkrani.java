@@ -1,0 +1,114 @@
+package BiLets;
+
+import javax.swing.*;
+import java.awt.*;
+
+public class BiletEkrani extends JFrame {
+    private JPanel pnlListe;
+    private JPanel pnlSehirler; 
+    
+    // Varsayılan filtreleri belirliyoruz
+    private String seciliKategori = "Tümü";
+    private String seciliSehir = "Tüm Şehirler";
+
+    public BiletEkrani() {
+        setTitle("BiLets - Etkinlik Seçimi");
+        setSize(1000, 800);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); // Programı tamamen kapatmaması için düzeltildi
+        setLocationRelativeTo(null);
+        setLayout(new BorderLayout());
+
+        JPanel pnlUstAna = new JPanel(new GridLayout(2, 1)); 
+
+        JPanel pnlKategoriler = new JPanel(new FlowLayout(FlowLayout.CENTER, 15, 10));
+        pnlKategoriler.setBackground(new Color(255, 240, 245));
+        
+        String[] kategoriler = {"Tümü", "Sinema", "Konser", "StandUp", "Tiyatro"};
+        for (String kat : kategoriler) {
+            JButton btn = new JButton(kat);
+            btn.setPreferredSize(new Dimension(110, 35));
+            btn.setBackground(Color.WHITE);
+            btn.setFocusPainted(false);
+            
+            btn.addActionListener(e -> {
+                seciliKategori = kat;
+                for(Component c : pnlKategoriler.getComponents()) c.setBackground(Color.WHITE);
+                btn.setBackground(new Color(255, 180, 210));
+                listeyiGuncelle();
+            });
+            pnlKategoriler.add(btn);
+        }
+
+        JButton btnGeri = new JButton("<- Ana Menü");
+        btnGeri.setPreferredSize(new Dimension(130, 35));
+        btnGeri.setBackground(new Color(200, 200, 200)); 
+        btnGeri.setFocusPainted(false);
+
+        btnGeri.addActionListener(e -> {
+            new KullaniciPaneli();
+            this.dispose();      
+        });
+
+        pnlKategoriler.add(btnGeri);
+
+        pnlSehirler = new JPanel(new FlowLayout(FlowLayout.CENTER, 15, 10));
+        pnlSehirler.setBackground(new Color(245, 245, 245));
+        
+        String[] sehirler = {"Tüm Şehirler", "Ankara", "İstanbul", "İzmir"};
+        for (String sehir : sehirler) {
+            JButton btnSehir = new JButton(sehir);
+            btnSehir.setPreferredSize(new Dimension(110, 30));
+            btnSehir.setBackground(Color.WHITE);
+            btnSehir.setFocusPainted(false);
+            
+            btnSehir.addActionListener(e -> {
+                seciliSehir = sehir;
+                for(Component c : pnlSehirler.getComponents()) c.setBackground(Color.WHITE);
+                btnSehir.setBackground(new Color(180, 210, 255));
+                listeyiGuncelle();
+            });
+            pnlSehirler.add(btnSehir);
+        }
+
+        pnlUstAna.add(pnlKategoriler);
+        pnlUstAna.add(pnlSehirler);
+        add(pnlUstAna, BorderLayout.NORTH);
+
+        pnlListe = new JPanel();
+        pnlListe.setLayout(new BoxLayout(pnlListe, BoxLayout.Y_AXIS));
+        pnlListe.setBackground(Color.WHITE);
+
+        JScrollPane scroll = new JScrollPane(pnlListe);
+        scroll.setBorder(null);
+        add(scroll, BorderLayout.CENTER);
+
+        listeyiGuncelle();
+        setVisible(true);
+    }
+
+    private void listeyiGuncelle() {
+        pnlListe.removeAll();
+
+        for (Event e : VeriDeposu.etkinlikListesi) {
+            
+            // 1. GÜVENLİK DUVARI: Arka planda kalmış boş verileri (hayaletleri) atlar.
+            if (e == null) continue; 
+
+            // 2. Kategori Filtresi
+            String kategori = e.getClass().getSimpleName(); 
+            boolean katUygun = seciliKategori.equals("Tümü") || kategori.equals(seciliKategori);
+            
+            // 3. AKILLI ŞEHİR FİLTRESİ: equalsIgnoreCase ile büyük/küçük harf sorununu çözer.
+            boolean sehirUygun = seciliSehir.equals("Tüm Şehirler") || e.getCity().trim().equalsIgnoreCase(seciliSehir);
+
+            if (katUygun && sehirUygun) {
+                pnlListe.add(Box.createVerticalStrut(15));
+                pnlListe.add(new EtkinlikSatiri(e));
+            }
+        }
+
+        pnlListe.add(Box.createVerticalGlue());
+        pnlListe.revalidate();
+        pnlListe.repaint();
+    }
+}
