@@ -54,7 +54,7 @@ public class BiletEkrani extends JFrame {
         pnlSehirler = new JPanel(new FlowLayout(FlowLayout.CENTER, 15, 10));
         pnlSehirler.setBackground(new Color(245, 245, 245));
         
-        String[] sehirler = {"Tüm Şehirler", "Ankara", "İstanbul", "İzmir"};
+        String[] sehirler = {"Tüm Şehirler", "Ankara", "Konya", "Kütahya"};
         for (String sehir : sehirler) {
             JButton btnSehir = new JButton(sehir);
             btnSehir.setPreferredSize(new Dimension(110, 30));
