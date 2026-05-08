@@ -88,25 +88,35 @@ public class GirisEkrani extends JFrame {
 
         btnKaydet.addActionListener(e -> {
             try {
+                // Hata kontrolleri
                 ExceptionClass.kontrolEtIsimSoyisim(tIsim.getText(), "İsim");
                 ExceptionClass.kontrolEtIsimSoyisim(tSoy.getText(), "Soyisim");
                 int yas = Integer.parseInt(tYas.getText());
                 ExceptionClass.kontrolEtYas(yas);
-                ExceptionClass.kontrolEtEmail(tMail.getText());
+                
+                // Sağdan soldan yanlışlıkla bırakılan boşlukları temizleyerek (trim) alıyoruz
+                String email = tMail.getText().trim(); 
+                
+                ExceptionClass.kontrolEtEmail(email);
                 ExceptionClass.kontrolEtTelefon(tTel.getText());
                 ExceptionClass.kontrolEtSifre(new String(tSifre.getPassword()));
 
+                // Yeni kullanıcıyı oluştur (Email boşluksuz gidiyor)
                 Kullanici yeni = new Kullanici(tIsim.getText(), tSoy.getText(), yas, 
-                                               tMail.getText(), tTel.getText(), new String(tSifre.getPassword()));
-                Person.uyeOl(yeni);
+                                               email, tTel.getText(), new String(tSifre.getPassword()));
+                
+                // 1. CANLI HAFIZAYA EKLE (Person.uyeOl yerine bunu kullanıyoruz!)
+                VeriDeposu.kullaniciListesi.add(yeni);
+                
+                // 2. DOSYAYA KALICI OLARAK KAYDET
+                new DosyaYönetimi().kullaniciKaydet(yeni);
                 
                 JOptionPane.showMessageDialog(this, "Üyelik oluşturuldu! Giriş yapabilirsiniz.");
-                showKullaniciGiris();
+                showKullaniciGiris(); // Giriş ekranına dön
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(this, ex.getMessage(), "Hata", JOptionPane.ERROR_MESSAGE);
             }
         });
-
         btnIptal.addActionListener(e -> showKullaniciGiris());
 
         add(new JLabel("İsim: ")); add(tIsim); add(new JLabel("Soyisim:")); add(tSoy);
