@@ -1,14 +1,12 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package BiLets;
 
 import java.io.*;
 import java.util.ArrayList;
 
-public class DosyaYönetimi implements IVeriDepolama {
+public class DosyaYonetimi implements IVeriDepolama {
     private final String KULLANICI_DOSYASI = "kullanicilar.csv";
+    private final String ETKINLIK_DOSYASI = "etkinlikler.dat";
+    private final String KOLTUK_DOSYASI = "dolu_koltuklar.dat"; // YENİ: Koltuk dosyası
 
     @Override
     public void kullaniciKaydet(Kullanici k) {
@@ -45,8 +43,6 @@ public class DosyaYönetimi implements IVeriDepolama {
         return liste;
     }
 
-    private final String ETKINLIK_DOSYASI = "etkinlikler.dat";
-
     @Override
     public void verileriKaydet(ArrayList<Event> liste) {
         try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(ETKINLIK_DOSYASI))) {
@@ -69,5 +65,26 @@ public class DosyaYönetimi implements IVeriDepolama {
             System.err.println("Etkinlik okuma hatası: " + e.getMessage());
         }
         return liste;
+    }
+
+    @Override
+    public void doluKoltuklariKaydet(java.util.HashMap<String, java.util.ArrayList<String>> map) {
+        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(KOLTUK_DOSYASI))) {
+            oos.writeObject(map);
+        } catch (IOException e) {
+            System.err.println("Koltuk yazma hatası: " + e.getMessage());
+        }
+    }
+
+    @Override
+    public java.util.HashMap<String, java.util.ArrayList<String>> doluKoltuklariYukle() {
+        File dosya = new File(KOLTUK_DOSYASI);
+        if (!dosya.exists()) return new java.util.HashMap<>();
+
+        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(dosya))) {
+            return (java.util.HashMap<String, java.util.ArrayList<String>>) ois.readObject();
+        } catch (Exception e) {
+            return new java.util.HashMap<>();
+        }
     }
 }
