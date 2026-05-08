@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Interface.java to edit this template
- */
 package BiLets;
 
 import java.util.ArrayList;
@@ -12,4 +8,8 @@ public interface IVeriDepolama {
 
     void kullaniciKaydet(Kullanici k);
     ArrayList<Kullanici> kullanicilariYukle();
+    
+    void doluKoltuklariKaydet(java.util.HashMap<String, java.util.ArrayList<String>> map);
+    java.util.HashMap<String, java.util.ArrayList<String>> doluKoltuklariYukle();
 }
+
