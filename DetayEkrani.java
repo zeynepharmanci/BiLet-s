@@ -2,9 +2,10 @@ package BiLets;
 
 import javax.swing.*;
 import java.awt.*;
+import java.net.URL;
 
 public class DetayEkrani extends JFrame {
-    
+
     public DetayEkrani(Etkinlik e, JFrame eskiEkran) {
         setTitle(e.getIsim() + " - Detaylar");
         setSize(500, 600);
@@ -12,13 +13,33 @@ public class DetayEkrani extends JFrame {
         setLocationRelativeTo(null);
         setLayout(new BorderLayout(20, 20));
 
-        JLabel lblResim = new JLabel("RESİM ALANI", SwingConstants.CENTER);
+        JLabel lblResim = new JLabel("", SwingConstants.CENTER); 
         lblResim.setPreferredSize(new Dimension(400, 250));
         lblResim.setBorder(BorderFactory.createLineBorder(Color.GRAY));
         lblResim.setOpaque(true);
         lblResim.setBackground(new Color(240, 240, 240));
+
+        String kategoriAdi = e.getKategori().toLowerCase();
+        try {
+           
+            URL resimURL = getClass().getResource("resimler/" + kategoriAdi + ".jpg");
+            
+            if (resimURL != null) {
+                ImageIcon orijinalIkon = new ImageIcon(resimURL);
+                Image boyutlandirilmisResim = orijinalIkon.getImage().getScaledInstance(400, 250, Image.SCALE_SMOOTH);
+                lblResim.setIcon(new ImageIcon(boyutlandirilmisResim));
+                lblResim.setText(""); 
+            } else {
+                lblResim.setText(e.getKategori() + " resmi bulunamadı");
+            }
+        } catch (Exception ex) {
+            lblResim.setText("Resim yükleme hatası!");
+        }
+
+        // 3. NESNEYİ EKRANA EKLEME (KRİTİK SATIR)
         add(lblResim, BorderLayout.NORTH);
 
+        // 4. BİLGİ PANELİ
         JPanel pnlBilgi = new JPanel();
         pnlBilgi.setLayout(new BoxLayout(pnlBilgi, BoxLayout.Y_AXIS));
         pnlBilgi.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
@@ -36,6 +57,7 @@ public class DetayEkrani extends JFrame {
         pnlBilgi.add(lblDetay);
         add(pnlBilgi, BorderLayout.CENTER);
 
+        // 5. BUTONLAR
         JPanel pnlButonlar = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 10));
  
         JButton btnGeri = new JButton("<- Geri Dön");
@@ -50,7 +72,6 @@ public class DetayEkrani extends JFrame {
         btnOnayla.setFocusPainted(false);
         
         btnOnayla.addActionListener(event -> {
-
             double gecerliFiyat = 0;
             try {
                 String fiyatMetni = String.valueOf(e.getFiyat()).replaceAll("[^0-9.]", "");
@@ -58,13 +79,12 @@ public class DetayEkrani extends JFrame {
                     gecerliFiyat = Double.parseDouble(fiyatMetni);
                 }
             } catch (Exception ex) {
-                System.out.println("Fiyat okunurken hata oluştu, fiyat 0 olarak alındı.");
+                System.out.println("Fiyat hatası.");
             }
-
             new KoltukSecimEkrani(e.getIsim(), gecerliFiyat).setVisible(true);
-            
             this.dispose();
         });
+
         pnlButonlar.add(btnGeri);
         pnlButonlar.add(btnOnayla);
         add(pnlButonlar, BorderLayout.SOUTH);
