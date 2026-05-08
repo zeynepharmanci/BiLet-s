@@ -91,8 +91,7 @@ public class GirisEkrani extends JFrame {
                 // Hata kontrolleri
                 ExceptionClass.kontrolEtIsimSoyisim(tIsim.getText(), "İsim");
                 ExceptionClass.kontrolEtIsimSoyisim(tSoy.getText(), "Soyisim");
-                int yas = Integer.parseInt(tYas.getText());
-                ExceptionClass.kontrolEtYas(yas);
+                int yas = ExceptionClass.kontrolEtYas(tYas.getText());
                 
                 // Sağdan soldan yanlışlıkla bırakılan boşlukları temizleyerek (trim) alıyoruz
                 String email = tMail.getText().trim(); 
