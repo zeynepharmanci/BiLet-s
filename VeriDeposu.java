@@ -9,10 +9,8 @@ public class VeriDeposu {
     public static ArrayList<Ticket> biletListesi = new ArrayList<>();
     public static Person aktifKullanici;
 
-    // YENİ: Etkinlik Adı -> O etkinliğin satılan koltuklarının listesi
     public static HashMap<String, ArrayList<String>> doluKoltuklar = null; 
 
-    // YENİ: Main'e dokunmadan arka planda koltukları dosyadan otomatik çeken zeka
     public static HashMap<String, ArrayList<String>> getDoluKoltuklar() {
         if (doluKoltuklar == null) {
             doluKoltuklar = new DosyaYonetimi().doluKoltuklariYukle();
