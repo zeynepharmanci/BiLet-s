@@ -56,7 +56,7 @@ public class Sinema extends Event implements Serializable{
         this.basrolOyuncu = basrolOyuncu.trim();
     }
 
-    public boolean isIs3D() { // boolean değişkenlerin getter'ı "is" ile başlar
+    public boolean isIs3D() { 
         return is3D;
     }
 
