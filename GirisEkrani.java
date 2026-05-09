@@ -93,25 +93,22 @@ public class GirisEkrani extends JFrame {
                 ExceptionClass.kontrolEtIsimSoyisim(tSoy.getText(), "Soyisim");
                 int yas = ExceptionClass.kontrolEtYas(tYas.getText());
                 
-                // Sağdan soldan yanlışlıkla bırakılan boşlukları temizleyerek (trim) alıyoruz
+                // Yanlışlıkla bırakılan boşluklar için
                 String email = tMail.getText().trim(); 
                 
                 ExceptionClass.kontrolEtEmail(email);
                 ExceptionClass.kontrolEtTelefon(tTel.getText());
                 ExceptionClass.kontrolEtSifre(new String(tSifre.getPassword()));
 
-                // Yeni kullanıcıyı oluştur (Email boşluksuz gidiyor)
                 Kullanici yeni = new Kullanici(tIsim.getText(), tSoy.getText(), yas, 
                                                email, tTel.getText(), new String(tSifre.getPassword()));
-                
-                // 1. CANLI HAFIZAYA EKLE (Person.uyeOl yerine bunu kullanıyoruz!)
+
                 VeriDeposu.kullaniciListesi.add(yeni);
-                
-                // 2. DOSYAYA KALICI OLARAK KAYDET
+
                 new DosyaYönetimi().kullaniciKaydet(yeni);
                 
                 JOptionPane.showMessageDialog(this, "Üyelik oluşturuldu! Giriş yapabilirsiniz.");
-                showKullaniciGiris(); // Giriş ekranına dön
+                showKullaniciGiris(); 
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(this, ex.getMessage(), "Hata", JOptionPane.ERROR_MESSAGE);
             }
