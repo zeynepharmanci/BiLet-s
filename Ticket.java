@@ -11,7 +11,7 @@ public abstract class Ticket {
     private Event etkinlik;
     private Person musteri;
     private String koltukNo;
-    protected double odenenFiyat; // Alt sınıflardan erişilebilmesi için protected
+    protected double odenenFiyat; 
     private boolean isRefunded;
     private LocalDateTime satinAlmaTarihi;
 
@@ -21,13 +21,11 @@ public abstract class Ticket {
         ExceptionClass.kontrolEtNesne(musteri, "Müşteri");
         ExceptionClass.kontrolEtGenelMetin(koltukNo, "Koltuk No");
 
-        // --- 2. ADIM: ATAMALAR (Hata yoksa bilet güvenle oluşturulur) ---
         this.biletKodu = biletKodu.trim();
         this.etkinlik = etkinlik;
         this.musteri = musteri;
         this.koltukNo = koltukNo.trim();
 
-        // Bu ikisi sistem tarafından otomatik atanır, kullanıcıdan alınmaz:
         this.isRefunded = false;
         this.satinAlmaTarihi = LocalDateTime.now();
     }
