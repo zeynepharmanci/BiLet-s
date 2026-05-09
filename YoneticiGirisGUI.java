@@ -23,7 +23,7 @@ public class YoneticiGirisGUI extends JFrame {
         getContentPane().setBackground(new Color(255, 240, 245));
 
         JLabel lblEmail = new JLabel(" E-Mail:");
-        txtEmail = new JTextField(); // E-mail'in girileceği o boş kutucuğu nesne olarak üretir.
+        txtEmail = new JTextField(); 
         
         JLabel lblSifre = new JLabel(" Şifre:");
         txtSifre = new JPasswordField();
@@ -40,8 +40,8 @@ public class YoneticiGirisGUI extends JFrame {
         btnGiris.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String email = txtEmail.getText(); // E-mail kutusuna yazılan yazıyı alır ve 'email' isimli değişkene atar.
-                String sifre = new String(txtSifre.getPassword()); // JPasswordField şifreyi güvenlik gereği karakter dizisi (char array) olarak tutar. 
+                String email = txtEmail.getText();
+                String sifre = new String(txtSifre.getPassword()); 
                 // Bunu alıp normal bir String (yazı) formatına çeviririz.
 
                 if (email.equals("admin@gazi.com") && sifre.equals("1234")) {
