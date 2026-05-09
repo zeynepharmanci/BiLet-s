@@ -36,10 +36,8 @@ public class DetayEkrani extends JFrame {
             lblResim.setText("Resim yükleme hatası!");
         }
 
-        // 3. NESNEYİ EKRANA EKLEME (KRİTİK SATIR)
         add(lblResim, BorderLayout.NORTH);
 
-        // 4. BİLGİ PANELİ
         JPanel pnlBilgi = new JPanel();
         pnlBilgi.setLayout(new BoxLayout(pnlBilgi, BoxLayout.Y_AXIS));
         pnlBilgi.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
@@ -57,7 +55,6 @@ public class DetayEkrani extends JFrame {
         pnlBilgi.add(lblDetay);
         add(pnlBilgi, BorderLayout.CENTER);
 
-        // 5. BUTONLAR
         JPanel pnlButonlar = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 10));
  
         JButton btnGeri = new JButton("<- Geri Dön");
