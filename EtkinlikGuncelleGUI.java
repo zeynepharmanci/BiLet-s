@@ -6,9 +6,8 @@ import java.awt.*;
 public class EtkinlikGuncelleGUI extends JFrame {
 
     private JTextField txtAd, txtSehir, txtFiyat;
-    private Event guncellenecekEvent; // Üzerinde değişiklik yapacağımız nesneyi burada tutacağız
+    private Event guncellenecekEvent; // Üzerinde değişiklik yapacağımız nesneyi burada tutuyoruz
 
-    // Yapıcı metot artık boş değil, bir 'Event' nesnesi bekliyor
     public EtkinlikGuncelleGUI(Event event) {
         this.guncellenecekEvent = event;
 
@@ -19,17 +18,16 @@ public class EtkinlikGuncelleGUI extends JFrame {
         setLayout(new GridLayout(5, 2, 10, 10));
         getContentPane().setBackground(new Color(255, 240, 245));
 
-        // METİN KUTULARINI OLUŞTURURKEN İÇLERİNİ NESNEDEN GELEN VERİYLE DOLDURUYORUZ
         add(new JLabel(" Etkinlik Adı:"));
-        txtAd = new JTextField(event.getEventname()); // Mevcut adı otomatik yazar
+        txtAd = new JTextField(event.getEventname()); 
         add(txtAd);
 
         add(new JLabel(" Şehir:"));
-        txtSehir = new JTextField(event.getCity()); // Mevcut şehri otomatik yazar
+        txtSehir = new JTextField(event.getCity());
         add(txtSehir);
 
         add(new JLabel(" Fiyat (TL):"));
-        txtFiyat = new JTextField(String.valueOf(event.getPrice())); // Mevcut fiyatı yazar
+        txtFiyat = new JTextField(String.valueOf(event.getPrice()));
         add(txtFiyat);
 
         JButton btnIptal = new JButton("İptal");
@@ -40,26 +38,21 @@ public class EtkinlikGuncelleGUI extends JFrame {
         add(btnIptal);
         add(btnKaydet);
 
-        // İPTAL BUTONU: Hiçbir şeyi değiştirmeden yönetici paneline geri döner
         btnIptal.addActionListener(e -> {
             new YoneticiPaneliGUI().setVisible(true);
             this.dispose();
         });
 
-        // KAYDET BUTONU: Kutulardaki yeni yazıları alır ve nesneye işler
         btnKaydet.addActionListener(e -> {
             try {
-                // 1. Nesnenin içindeki bilgileri yeni yazılanlarla güncelliyoruz (Setter kullanımı)
                 guncellenecekEvent.setEventname(txtAd.getText());
                 guncellenecekEvent.setCity(txtSehir.getText());
                 guncellenecekEvent.setPrice(Double.parseDouble(txtFiyat.getText()));
 
-                // 2. TÜM LİSTEYİ DOSYAYA TEKRAR MÜHÜRLÜYORUZ (Kalıcı olması için en kritik adım)
                 new DosyaYönetimi().verileriKaydet(VeriDeposu.etkinlikListesi);
 
                 JOptionPane.showMessageDialog(this, "Etkinlik başarıyla güncellendi!");
-                
-                // 3. Yönetici paneline geri dönüyoruz (Tablo otomatik olarak yeni haliyle yüklenecek)
+ 
                 new YoneticiPaneliGUI().setVisible(true);
                 this.dispose();
 
