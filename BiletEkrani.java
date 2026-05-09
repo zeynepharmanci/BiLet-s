@@ -6,15 +6,14 @@ import java.awt.*;
 public class BiletEkrani extends JFrame {
     private JPanel pnlListe;
     private JPanel pnlSehirler; 
-    
-    // Varsayılan filtreleri belirliyoruz
+
     private String seciliKategori = "Tümü";
     private String seciliSehir = "Tüm Şehirler";
 
     public BiletEkrani() {
         setTitle("BiLets - Etkinlik Seçimi");
         setSize(1000, 800);
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); // Programı tamamen kapatmaması için düzeltildi
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
         setLayout(new BorderLayout());
 
@@ -90,15 +89,13 @@ public class BiletEkrani extends JFrame {
         pnlListe.removeAll();
 
         for (Event e : VeriDeposu.etkinlikListesi) {
-            
-            // 1. GÜVENLİK DUVARI: Arka planda kalmış boş verileri (hayaletleri) atlar.
+
             if (e == null) continue; 
 
             // 2. Kategori Filtresi
             String kategori = e.getClass().getSimpleName(); 
             boolean katUygun = seciliKategori.equals("Tümü") || kategori.equals(seciliKategori);
-            
-            // 3. AKILLI ŞEHİR FİLTRESİ: equalsIgnoreCase ile büyük/küçük harf sorununu çözer.
+
             boolean sehirUygun = seciliSehir.equals("Tüm Şehirler") || e.getCity().trim().equalsIgnoreCase(seciliSehir);
 
             if (katUygun && sehirUygun) {
