@@ -15,7 +15,7 @@ public class AnaEkran extends JFrame {
 
         pnlUst = new JPanel();
         pnlUst.setBackground(new Color(255, 230, 240));
-        String[] kategoriler = {"Sinema", "Konser", "StandUp", "Tiyatro", "T�m�"};
+        String[] kategoriler = {"Sinema", "Konser", "StandUp", "Tiyatro", "Tumu"};
         for (String kat : kategoriler) {
             JButton btn = new JButton(kat);
             btn.addActionListener(e -> filtrele(kat)); 
