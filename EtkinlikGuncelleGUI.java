@@ -49,7 +49,7 @@ public class EtkinlikGuncelleGUI extends JFrame {
                 guncellenecekEvent.setCity(txtSehir.getText());
                 guncellenecekEvent.setPrice(Double.parseDouble(txtFiyat.getText()));
 
-                new DosyaYönetimi().verileriKaydet(VeriDeposu.etkinlikListesi);
+                new DosyaYonetimi().verileriKaydet(VeriDeposu.etkinlikListesi);
 
                 JOptionPane.showMessageDialog(this, "Etkinlik başarıyla güncellendi!");
  
