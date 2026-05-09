@@ -24,7 +24,6 @@ public class EtkinlikSilGUI extends JFrame {
         pnlSecim.setOpaque(false);
         pnlSecim.add(new JLabel("Silinecek Etkinliği Seçin:"));
 
-        // DÜZELTME 1: Combobox'ı VeriDeposu'ndaki GERÇEK verilerle dolduruyoruz
         cmbEtkinlikler = new JComboBox<>();
         cmbEtkinlikler.addItem("Seçiniz...");
         for (Event e : VeriDeposu.etkinlikListesi) {
@@ -62,14 +61,13 @@ public class EtkinlikSilGUI extends JFrame {
                 "Silme Onayı", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
 
             if (onay == JOptionPane.YES_OPTION) {
-                // DÜZELTME 2: Seçilen öğeyi gerçek listeden bul, sil ve DOSYAYI GÜNCELLE
-                Event silinecekEvent = VeriDeposu.etkinlikListesi.get(secilenIndex - 1); // -1 yapıyoruz çünkü ilk sırada "Seçiniz" var
+ 
+                Event silinecekEvent = VeriDeposu.etkinlikListesi.get(secilenIndex - 1); 
                 VeriDeposu.etkinlikListesi.remove(silinecekEvent);
                 new DosyaYönetimi().verileriKaydet(VeriDeposu.etkinlikListesi);
                 
                 JOptionPane.showMessageDialog(this, "Etkinlik başarıyla silindi.");
-                
-                // Ekranları yenilemek için silme panelini kapatıp yönetici panelini baştan açıyoruz
+ 
                 new YoneticiPaneliGUI().setVisible(true);
                 this.dispose();
             }
