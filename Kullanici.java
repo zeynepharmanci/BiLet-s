@@ -9,6 +9,10 @@ public class Kullanici extends Person {
     private String skt;
     private String cvv;
 
+    public Kullanici(String name, String surname, int age, String email, String phonenumber,String password){
+         super(name,surname,age,email,phonenumber,password);
+    }
+
     public String getSkt() {
         return skt;
     }
@@ -25,10 +29,7 @@ public class Kullanici extends Person {
          ExceptionClass.kontrolEtGenelMetin(cvv,"CVV");
         this.cvv = cvv;
     }
-    public Kullanici(String name, String surname, int age, String email, String phonenumber,String password){
-         super(name,surname,age,email,phonenumber,password);
-    }
-
+   
     public String getKartnumarasi() {
         return kartnumarasi;
     }
