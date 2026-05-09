@@ -64,7 +64,7 @@ public class EtkinlikSilGUI extends JFrame {
  
                 Event silinecekEvent = VeriDeposu.etkinlikListesi.get(secilenIndex - 1); 
                 VeriDeposu.etkinlikListesi.remove(silinecekEvent);
-                new DosyaYönetimi().verileriKaydet(VeriDeposu.etkinlikListesi);
+                new DosyaYonetimi().verileriKaydet(VeriDeposu.etkinlikListesi);
                 
                 JOptionPane.showMessageDialog(this, "Etkinlik başarıyla silindi.");
  
