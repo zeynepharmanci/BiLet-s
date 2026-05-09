@@ -7,8 +7,8 @@ import java.io.FileWriter;
 import java.util.ArrayList;
 
 public class OdemeEkrani extends JFrame {
-    
-    public OdemeEkrani(double tutar, ArrayList<String> koltuklar, JFrame koltukEkrani) {
+
+    public OdemeEkrani(double tutar, ArrayList<String> koltuklar, JFrame koltukEkrani, String biletTuru) {
         setTitle("BiLets - Güvenli Ödeme");
         setSize(400, 500);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -19,7 +19,7 @@ public class OdemeEkrani extends JFrame {
         pnlOzet.setBackground(new Color(255, 240, 245));
         pnlOzet.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 20));
         
-        JLabel lblTutar = new JLabel("Toplam Tutar: " + tutar + " TL");
+        JLabel lblTutar = new JLabel("Toplam Tutar: " + tutar + " TL (" + biletTuru + ")");
         lblTutar.setFont(new Font("Segoe UI", Font.BOLD, 18));
         JLabel lblKoltuk = new JLabel("Koltuklar: " + String.join(", ", koltuklar));
         
@@ -66,12 +66,35 @@ public class OdemeEkrani extends JFrame {
             } else {
 
                 try {
-
                     String etkinlikAdi = koltukEkrani.getTitle().replace(" - Koltuk Seçimi", "");
+
+                    Event asilEtkinlik = null;
+                    for(Event ev : VeriDeposu.etkinlikListesi) {
+                        if(ev != null && ev.getEventname().equals(etkinlikAdi)) {
+                            asilEtkinlik = ev; break;
+                        }
+                    }
+
+                    if(asilEtkinlik != null) {
+                        for(String koltuk : koltuklar) {
+                            String rastgeleKod = "BLT-" + System.currentTimeMillis() % 1000 + "-" + koltuk;
+                            Ticket yeniBilet;
+
+                            if(biletTuru.equals("Genç")) {
+                                yeniBilet = new Genc(rastgeleKod, asilEtkinlik, VeriDeposu.aktifKullanici, koltuk);
+                            } else {
+                                yeniBilet = new Yetiskin(rastgeleKod, asilEtkinlik, VeriDeposu.aktifKullanici, koltuk);
+                            }
+                            
+                            yeniBilet.biletFiyatiHesapla(); 
+                            VeriDeposu.biletListesi.add(yeniBilet); 
+                        }
+                    }
+
                     String email = ((Person)VeriDeposu.aktifKullanici).getEmail();
                     String koltuklarStr = String.join(",", koltuklar);
 
-                    String kayit = email + "|" + etkinlikAdi + "|" + koltuklarStr + "|" + tutar;        
+                    String kayit = email + "|" + etkinlikAdi + " (" + biletTuru + " Bilet)|" + koltuklarStr + "|" + tutar;        
                     BufferedWriter bw = new BufferedWriter(new FileWriter("bilet_gecmisi.txt", true));
                     bw.write(kayit);
                     bw.newLine();
