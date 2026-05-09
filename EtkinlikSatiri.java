@@ -27,15 +27,12 @@ public class EtkinlikSatiri extends JPanel {
         btnBilet.addActionListener(aksiyon -> {
             JFrame anaPencere = (JFrame) SwingUtilities.getWindowAncestor(this);
 
-            // İŞTE ÇEVİRİCİ KÖPRÜ BURASI: 
-            // Elimizdeki Event nesnesinin verilerini çekiyoruz
             String isim = e.getEventname();
-            String mekan = "Belirtilmedi"; // Event sınıfında mekan değişkeni olmadığı için boş geçiyoruz
+            String mekan = "Belirtilmedi";
             String sehir = e.getCity();
             String fiyat = String.valueOf(e.getPrice());
-            String kategori = e.getClass().getSimpleName(); // "Sinema", "Konser" kelimesini otomatik alır
+            String kategori = e.getClass().getSimpleName(); 
 
-            // DetayEkrani'nin tam da beklediği o eski "Etkinlik" nesnesini bu verilerle üretiyoruz
             Etkinlik eskiFormataUygunEtkinlik = new Etkinlik(isim, mekan, sehir, fiyat, kategori);
 
             // Ve DetayEkrani'ne hatasız bir şekilde fırlatıyoruz!
