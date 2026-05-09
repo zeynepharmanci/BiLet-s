@@ -92,7 +92,6 @@ public class BiletEkrani extends JFrame {
 
             if (e == null) continue; 
 
-            // 2. Kategori Filtresi
             String kategori = e.getClass().getSimpleName(); 
             boolean katUygun = seciliKategori.equals("Tümü") || kategori.equals(seciliKategori);
 
