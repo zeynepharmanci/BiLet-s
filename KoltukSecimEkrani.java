@@ -20,6 +20,7 @@ public class KoltukSecimEkrani extends JFrame {
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
         setLayout(new BorderLayout(10, 10));
+		setExtendedState(JFrame.MAXIMIZED_BOTH);
 
         getContentPane().setBackground(new Color(255, 240, 245));
 
