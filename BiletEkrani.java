@@ -16,6 +16,7 @@ public class BiletEkrani extends JFrame {
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
         setLayout(new BorderLayout());
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
 
         JPanel pnlUstAna = new JPanel(new GridLayout(2, 1)); 
 
