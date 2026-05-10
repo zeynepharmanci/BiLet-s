@@ -15,7 +15,7 @@ public class EtkinlikSatiri extends JPanel {
         ));
 
         setMaximumSize(new Dimension(1200, 100));
-        JLabel lblBilgi = new JLabel(e.getEventname() + " - " + e.getCity() + " - " + e.getPrice());
+        JLabel lblBilgi = new JLabel(e.getEventname() + " - " + e.getCity() + " - " + e.getPrice() + " TL");
         lblBilgi.setFont(new Font("Segoe UI", Font.BOLD, 14));
 
         JButton btnBilet = new JButton("Bilet Al");
@@ -27,21 +27,13 @@ public class EtkinlikSatiri extends JPanel {
         btnBilet.addActionListener(aksiyon -> {
             JFrame anaPencere = (JFrame) SwingUtilities.getWindowAncestor(this);
 
-            String isim = e.getEventname();
-            String mekan = "Belirtilmedi";
-            String sehir = e.getCity();
-            String fiyat = String.valueOf(e.getPrice());
-            String kategori = e.getClass().getSimpleName(); 
-
-            Etkinlik eskiFormataUygunEtkinlik = new Etkinlik(isim, mekan, sehir, fiyat, kategori);
-
-            // Ve DetayEkrani'ne hatasız bir şekilde fırlatıyoruz!
-            new DetayEkrani(eskiFormataUygunEtkinlik, anaPencere); 
+            new DetayEkrani(e, anaPencere); 
             
             if (anaPencere != null) {
                 anaPencere.setVisible(false);
             }
         });
+        
         add(lblBilgi, BorderLayout.CENTER);
         add(btnBilet, BorderLayout.EAST);
     }
