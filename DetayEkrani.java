@@ -6,8 +6,8 @@ import java.net.URL;
 
 public class DetayEkrani extends JFrame {
 
-    public DetayEkrani(Etkinlik e, JFrame eskiEkran) {
-        setTitle(e.getIsim() + " - Detaylar");
+    public DetayEkrani(Event e, JFrame eskiEkran) {
+        setTitle(e.getEventname() + " - Detaylar");
         setSize(500, 600);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
@@ -19,18 +19,15 @@ public class DetayEkrani extends JFrame {
         lblResim.setOpaque(true);
         lblResim.setBackground(new Color(240, 240, 240));
 
-        String kategoriAdi = e.getKategori().toLowerCase();
+        String kategoriAdi = e.getClass().getSimpleName().toLowerCase();
         try {
-           
             URL resimURL = getClass().getResource("resimler/" + kategoriAdi + ".jpg");
-            
             if (resimURL != null) {
                 ImageIcon orijinalIkon = new ImageIcon(resimURL);
                 Image boyutlandirilmisResim = orijinalIkon.getImage().getScaledInstance(400, 250, Image.SCALE_SMOOTH);
                 lblResim.setIcon(new ImageIcon(boyutlandirilmisResim));
-                lblResim.setText(""); 
             } else {
-                lblResim.setText(e.getKategori() + " resmi bulunamadı");
+                lblResim.setText(e.getClass().getSimpleName() + " resmi bulunamadı");
             }
         } catch (Exception ex) {
             lblResim.setText("Resim yükleme hatası!");
@@ -42,13 +39,42 @@ public class DetayEkrani extends JFrame {
         pnlBilgi.setLayout(new BoxLayout(pnlBilgi, BoxLayout.Y_AXIS));
         pnlBilgi.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
 
-        JLabel lblBaslik = new JLabel(e.getIsim());
+        JLabel lblBaslik = new JLabel(e.getEventname());
         lblBaslik.setFont(new Font("Segoe UI", Font.BOLD, 24));
-        
-        JLabel lblDetay = new JLabel("<html><br><b>Mekan:</b> " + e.getMekan() + 
-                                     "<br><b>Şehir:</b> " + e.getSehir() + 
-                                     "<br><b>Fiyat:</b> " + e.getFiyat() + 
-                                     "<br><b>Kategori:</b> " + e.getKategori() + "</html>");
+
+        String detayMetni = "<html><br><b>Şehir:</b> " + e.getCity() + 
+                            "<br><b>Taban Fiyat:</b> " + e.getPrice() + " TL<br><br>";
+
+        if (e instanceof Sinema) {
+            Sinema s = (Sinema) e;
+            detayMetni += "<b>Tür:</b> Sinema (" + s.getFilmTuru() + ")<br>" +
+                          "<b>Yönetmen:</b> " + s.getYonetmen() + "<br>" +
+                          "<b>Başrol:</b> " + s.getBasrolOyuncu() + "<br>" +
+                          "<b>Süre:</b> " + s.getFilmSuresi() + " dk<br>" +
+                          "<b>3D Seçeneği:</b> " + (s.isIs3D() ? "Var" : "Yok");
+                          
+        } else if (e instanceof Konser) {
+            Konser k = (Konser) e;
+            detayMetni += "<b>Tür:</b> Konser<br>" +
+                          "<b>Sanatçı / Grup:</b> " + k.getSanatci() + "<br>" +
+                          "<b>Müzik Tarzı:</b> " + k.getMuzikTuru();
+                          
+        } else if (e instanceof Tiyatro) {
+            Tiyatro t = (Tiyatro) e;
+            detayMetni += "<b>Tür:</b> Tiyatro (" + t.getType() + ")<br>" +
+                          "<b>Yazar / Yönetmen:</b> " + t.getOyuncuKadrosu() + "<br>" +
+                          "<b>Perde Sayısı:</b> " + t.getPerdeSayisi();
+                          
+        } else if (e instanceof StandUp) {
+            StandUp st = (StandUp) e;
+            detayMetni += "<b>Tür:</b> Stand-Up<br>" +
+                          "<b>Komedyen:</b> " + st.getKomedyen() + "<br>" +
+                          "<b>Konu:</b> " + st.getGosteriKonusu() + "<br>" +
+                          "<b>Yaş Sınırı:</b> +" + st.getYasSiniri();
+        }
+        detayMetni += "</html>";
+
+        JLabel lblDetay = new JLabel(detayMetni);
         lblDetay.setFont(new Font("Segoe UI", Font.PLAIN, 16));
 
         pnlBilgi.add(lblBaslik);
@@ -69,16 +95,7 @@ public class DetayEkrani extends JFrame {
         btnOnayla.setFocusPainted(false);
         
         btnOnayla.addActionListener(event -> {
-            double gecerliFiyat = 0;
-            try {
-                String fiyatMetni = String.valueOf(e.getFiyat()).replaceAll("[^0-9.]", "");
-                if (!fiyatMetni.isEmpty()) {
-                    gecerliFiyat = Double.parseDouble(fiyatMetni);
-                }
-            } catch (Exception ex) {
-                System.out.println("Fiyat hatası.");
-            }
-            new KoltukSecimEkrani(e.getIsim(), gecerliFiyat).setVisible(true);
+            new KoltukSecimEkrani(e.getEventname(), e.getPrice()).setVisible(true);
             this.dispose();
         });
 
