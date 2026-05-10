@@ -13,11 +13,13 @@ public class DetayEkrani extends JFrame {
         setLocationRelativeTo(null);
         setLayout(new BorderLayout(20, 20));
 
+        getContentPane().setBackground(new Color(255, 240, 245));
+
         JLabel lblResim = new JLabel("", SwingConstants.CENTER); 
         lblResim.setPreferredSize(new Dimension(400, 250));
-        lblResim.setBorder(BorderFactory.createLineBorder(Color.GRAY));
+        lblResim.setBorder(BorderFactory.createLineBorder(new Color(255, 0, 127), 2));
         lblResim.setOpaque(true);
-        lblResim.setBackground(new Color(240, 240, 240));
+        lblResim.setBackground(Color.WHITE);
 
         String kategoriAdi = e.getClass().getSimpleName().toLowerCase();
         try {
@@ -33,14 +35,21 @@ public class DetayEkrani extends JFrame {
             lblResim.setText("Resim yükleme hatası!");
         }
 
-        add(lblResim, BorderLayout.NORTH);
+        JPanel pnlResimUst = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        pnlResimUst.setOpaque(false); 
+        pnlResimUst.setBorder(BorderFactory.createEmptyBorder(15, 0, 0, 0));
+        pnlResimUst.add(lblResim);
+
+        add(pnlResimUst, BorderLayout.NORTH);
 
         JPanel pnlBilgi = new JPanel();
         pnlBilgi.setLayout(new BoxLayout(pnlBilgi, BoxLayout.Y_AXIS));
-        pnlBilgi.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+        pnlBilgi.setOpaque(false);
+        pnlBilgi.setBorder(BorderFactory.createEmptyBorder(10, 30, 20, 30));
 
         JLabel lblBaslik = new JLabel(e.getEventname());
-        lblBaslik.setFont(new Font("Segoe UI", Font.BOLD, 24));
+        lblBaslik.setFont(new Font("Segoe UI", Font.BOLD, 26));
+        lblBaslik.setForeground(new Color(255, 0, 127)); 
 
         String detayMetni = "<html><br><b>Şehir:</b> " + e.getCity() + 
                             "<br><b>Taban Fiyat:</b> " + e.getPrice() + " TL<br><br>";
@@ -82,17 +91,27 @@ public class DetayEkrani extends JFrame {
         add(pnlBilgi, BorderLayout.CENTER);
 
         JPanel pnlButonlar = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 10));
- 
+        pnlButonlar.setOpaque(false); 
+        pnlButonlar.setBorder(BorderFactory.createEmptyBorder(0, 0, 15, 0));
+
         JButton btnGeri = new JButton("<- Geri Dön");
+        btnGeri.setPreferredSize(new Dimension(130, 40));
+        btnGeri.setBackground(Color.LIGHT_GRAY);
+        btnGeri.setForeground(Color.BLACK);
+        btnGeri.setFocusPainted(false);
+        btnGeri.setFont(new Font("Segoe UI", Font.BOLD, 14));
+        
         btnGeri.addActionListener(event -> {
             eskiEkran.setVisible(true); 
             this.dispose(); 
         });
 
         JButton btnOnayla = new JButton("Koltuk Seç ve Öde");
+        btnOnayla.setPreferredSize(new Dimension(180, 40));
         btnOnayla.setBackground(new Color(255, 0, 127));
         btnOnayla.setForeground(Color.WHITE);
         btnOnayla.setFocusPainted(false);
+        btnOnayla.setFont(new Font("Segoe UI", Font.BOLD, 14));
         
         btnOnayla.addActionListener(event -> {
             new KoltukSecimEkrani(e.getEventname(), e.getPrice()).setVisible(true);
