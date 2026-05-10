@@ -24,6 +24,7 @@ public class KullaniciPaneli extends JFrame {
         setLocationRelativeTo(null);
         setLayout(new GridBagLayout());
         getContentPane().setBackground(new Color(255, 240, 245));
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
 
         JPanel pnlMerkez = new JPanel(new GridLayout(5, 1, 10, 20));
         pnlMerkez.setOpaque(false);
