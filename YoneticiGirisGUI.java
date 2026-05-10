@@ -18,6 +18,7 @@ public class YoneticiGirisGUI extends JFrame {
         setSize(500, 600);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null); 
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
 
         setLayout(new GridBagLayout());
         getContentPane().setBackground(new Color(255, 240, 245));
