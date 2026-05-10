@@ -126,9 +126,14 @@ public class OdemeEkrani extends JFrame {
 
                 JOptionPane.showMessageDialog(this, "Ödemeniz başarıyla alındı!\nİyi eğlenceler dileriz.", "Başarılı", JOptionPane.INFORMATION_MESSAGE);
 
-                new KullaniciPaneli().setVisible(true);
-                koltukEkrani.dispose(); 
-                this.dispose(); 
+                if (koltukEkrani != null) {
+                    koltukEkrani.dispose(); 
+                }
+                this.dispose();
+
+                SwingUtilities.invokeLater(() -> {
+                    new KullaniciPaneli(); 
+                });
             }
         });
 
