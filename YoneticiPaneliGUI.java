@@ -6,9 +6,6 @@ import javax.swing.table.DefaultTableModel;
 
 public class YoneticiPaneliGUI extends JFrame {
 
-    /**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private JTable tablo; 
     private DefaultTableModel model; 
@@ -20,6 +17,7 @@ public class YoneticiPaneliGUI extends JFrame {
         setLocationRelativeTo(null); 
         setLayout(new BorderLayout(10, 10));
         getContentPane().setBackground(new Color(255, 240, 245));
+		setExtendedState(JFrame.MAXIMIZED_BOTH);
 
         JLabel lblBaslik = new JLabel("Sistemdeki Etkinlikler", SwingConstants.CENTER);
         lblBaslik.setFont(new Font("Segoe UI", Font.BOLD, 24));
