@@ -1,4 +1,4 @@
-BiLets - Etkinlik ve Bilet Otomasyon Sistemi
+## BiLets - Etkinlik ve Bilet Otomasyon Sistemi
 
 Bu proje, kullanıcıların sinema, konser, tiyatro ve stand-up gösterileri için bilet alabildiği; yöneticilerin ise sistemdeki etkinlikleri yönetebildiği nesne yönelimli (OOP) bir Java Swing masaüstü uygulamasıdır.
 
