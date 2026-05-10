@@ -64,7 +64,8 @@ public class DetayEkrani extends JFrame {
         pnlBilgi.setBorder(BorderFactory.createEmptyBorder(20, 250, 20, 250));
 
         String detayMetni = "<html><center><b>Şehir:</b> " + e.getCity() + 
-                            "<br><b>Taban Fiyat:</b> " + e.getPrice() + " TL<br><br>";
+                "<br><b>Tarih & Saat:</b> " + e.getTarih() + // YENİ EKLENEN SATIR
+                "<br><b>Taban Fiyat:</b> " + e.getPrice() + " TL<br><br>";
 
         if (e instanceof Sinema) {
             Sinema s = (Sinema) e;
