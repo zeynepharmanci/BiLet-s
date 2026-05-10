@@ -13,6 +13,7 @@ public class OdemeEkrani extends JFrame {
         setSize(500, 650); 
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
 
         setLayout(new GridBagLayout()); 
 
