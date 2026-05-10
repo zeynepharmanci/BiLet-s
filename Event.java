@@ -11,6 +11,7 @@ public abstract class Event implements Serializable{
     private String city;
     private double price;
     private boolean[][] seats;
+    private String tarih = "Belirtilmedi";
     
     public Event(String eventname, String city,double price,boolean[][] seats){
         this.eventname=eventname;
@@ -63,6 +64,13 @@ public abstract class Event implements Serializable{
     public void setEventname(String text) {
 
         this.eventname = text; 
+    }
+    public String getTarih() {
+        return tarih;
+    }
+
+    public void setTarih(String tarih) {
+        this.tarih = tarih;
     }
 
 
