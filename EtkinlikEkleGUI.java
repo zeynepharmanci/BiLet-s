@@ -7,17 +7,17 @@ public class EtkinlikEkleGUI extends JFrame {
 
     private JComboBox<String> cmbTur;
     private JPanel pnlDinamikForm;
-    private JTextField txtAd, txtSehir, txtFiyat;
+    private JTextField txtAd, txtSehir, txtFiyat, txtTarih; 
 
     public EtkinlikEkleGUI() {
         setTitle("BiLet's - Etkinlik Ekle");
-        setSize(500, 600);
+        setSize(500, 650); 
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
         setLayout(new BorderLayout(10, 10));
         getContentPane().setBackground(new Color(255, 240, 245)); 
 
-        JPanel pnlOrtak = new JPanel(new GridLayout(4, 2, 10, 10));
+        JPanel pnlOrtak = new JPanel(new GridLayout(5, 2, 10, 10));
         pnlOrtak.setOpaque(false); 
         pnlOrtak.setBorder(BorderFactory.createTitledBorder("Genel Bilgiler"));
 
@@ -32,6 +32,10 @@ public class EtkinlikEkleGUI extends JFrame {
         pnlOrtak.add(new JLabel("Şehir:"));
         txtSehir = new JTextField();
         pnlOrtak.add(txtSehir);
+
+        pnlOrtak.add(new JLabel("Tarih ve Saat (Örn: 20 Mayıs 20:00):"));
+        txtTarih = new JTextField();
+        pnlOrtak.add(txtTarih);
 
         pnlOrtak.add(new JLabel("Fiyat (TL):"));
         txtFiyat = new JTextField();
@@ -71,14 +75,11 @@ public class EtkinlikEkleGUI extends JFrame {
 
         cmbTur.addActionListener(e -> {
             String secilenTur = (String) cmbTur.getSelectedItem();
-            
             pnlDinamikForm.removeAll();
-            
             JPanel yeniForm = EtkinlikFormFabrikasi.formUret(secilenTur);
             if (yeniForm != null) {
                 pnlDinamikForm.add(yeniForm, BorderLayout.CENTER);
             }
-            
             pnlDinamikForm.revalidate();
             pnlDinamikForm.repaint();
         });
@@ -88,6 +89,7 @@ public class EtkinlikEkleGUI extends JFrame {
                 String ad = txtAd.getText();
                 String sehir = txtSehir.getText();
                 double fiyat = Double.parseDouble(txtFiyat.getText());
+                String tarih = txtTarih.getText(); // YENİ
                 String tur = (String) cmbTur.getSelectedItem();
                 boolean[][] bosKoltuklar = new boolean[10][10];
                 Event yeniEtkinlik = null;
@@ -105,10 +107,12 @@ public class EtkinlikEkleGUI extends JFrame {
                     return; 
                 }
 
+                yeniEtkinlik.setTarih(tarih.isEmpty() ? "Belirtilmedi" : tarih);
+
                 VeriDeposu.etkinlikListesi.add(yeniEtkinlik);
                 new DosyaYonetimi().verileriKaydet(VeriDeposu.etkinlikListesi);
 
-                JOptionPane.showMessageDialog(this, "Etkinlik başarıyla sisteme eklendi ve kaydedildi!");
+                JOptionPane.showMessageDialog(this, "Etkinlik başarıyla eklendi!");
                 this.dispose(); 
                 new YoneticiPaneliGUI().setVisible(true); 
 
@@ -126,28 +130,20 @@ public class EtkinlikEkleGUI extends JFrame {
 
             switch (tur) {
                 case "Sinema":
-                    pnl.add(new JLabel("Yönetmen:"));
-                    pnl.add(new JTextField());
-                    pnl.add(new JLabel("3D Seçeneği:"));
-                    pnl.add(new JCheckBox("Evet, 3D uyumlu"));
+                    pnl.add(new JLabel("Yönetmen:")); pnl.add(new JTextField());
+                    pnl.add(new JLabel("3D Seçeneği:")); pnl.add(new JCheckBox("Evet, 3D uyumlu"));
                     return pnl;
                 case "Tiyatro":
-                    pnl.add(new JLabel("Perde Sayısı:"));
-                    pnl.add(new JTextField());
-                    pnl.add(new JLabel("Yazar:"));
-                    pnl.add(new JTextField());
+                    pnl.add(new JLabel("Perde Sayısı:")); pnl.add(new JTextField());
+                    pnl.add(new JLabel("Yazar:")); pnl.add(new JTextField());
                     return pnl;
                 case "Konser":
-                    pnl.add(new JLabel("Sanatçı/Grup:"));
-                    pnl.add(new JTextField());
-                    pnl.add(new JLabel("Müzik Türü (Pop, Rock vb.):"));
-                    pnl.add(new JTextField());
+                    pnl.add(new JLabel("Sanatçı/Grup:")); pnl.add(new JTextField());
+                    pnl.add(new JLabel("Müzik Türü:")); pnl.add(new JTextField());
                     return pnl;
                 case "StandUp":
-                    pnl.add(new JLabel("Komedyen:"));
-                    pnl.add(new JTextField());
-                    pnl.add(new JLabel("Yaş Sınırı (+18 vb):"));
-                    pnl.add(new JTextField());
+                    pnl.add(new JLabel("Komedyen:")); pnl.add(new JTextField());
+                    pnl.add(new JLabel("Yaş Sınırı:")); pnl.add(new JTextField());
                     return pnl;
                 default:
                     return null;
