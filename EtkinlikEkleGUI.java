@@ -44,11 +44,30 @@ public class EtkinlikEkleGUI extends JFrame {
         pnlDinamikForm.setOpaque(false);
         add(pnlDinamikForm, BorderLayout.CENTER);
 
+        JPanel pnlButonlar = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 10));
+        pnlButonlar.setOpaque(false);
+
+        JButton btnGeri = new JButton("<- Geri Dön");
+        btnGeri.setPreferredSize(new Dimension(120, 40));
+        btnGeri.setBackground(Color.LIGHT_GRAY);
+        btnGeri.setForeground(Color.BLACK);
+        btnGeri.setFocusPainted(false);
+        
+        btnGeri.addActionListener(e -> {
+            new YoneticiPaneliGUI().setVisible(true);
+            this.dispose();
+        });
+
         JButton btnKaydet = new JButton("Etkinliği Kaydet");
-        btnKaydet.setPreferredSize(new Dimension(100, 40));
+        btnKaydet.setPreferredSize(new Dimension(140, 40));
         btnKaydet.setBackground(new Color(255, 0, 127)); 
         btnKaydet.setForeground(Color.WHITE);
-        add(btnKaydet, BorderLayout.SOUTH);
+        btnKaydet.setFocusPainted(false);
+
+        pnlButonlar.add(btnGeri);
+        pnlButonlar.add(btnKaydet);
+        
+        add(pnlButonlar, BorderLayout.SOUTH);
 
         cmbTur.addActionListener(e -> {
             String secilenTur = (String) cmbTur.getSelectedItem();
@@ -87,7 +106,7 @@ public class EtkinlikEkleGUI extends JFrame {
                 }
 
                 VeriDeposu.etkinlikListesi.add(yeniEtkinlik);
-                new DosyaYönetimi().verileriKaydet(VeriDeposu.etkinlikListesi);
+                new DosyaYonetimi().verileriKaydet(VeriDeposu.etkinlikListesi);
 
                 JOptionPane.showMessageDialog(this, "Etkinlik başarıyla sisteme eklendi ve kaydedildi!");
                 this.dispose(); 
@@ -99,7 +118,6 @@ public class EtkinlikEkleGUI extends JFrame {
         });
     }
     
- 
     static class EtkinlikFormFabrikasi {
         public static JPanel formUret(String tur) {
             JPanel pnl = new JPanel(new GridLayout(3, 2, 10, 10));
@@ -113,32 +131,27 @@ public class EtkinlikEkleGUI extends JFrame {
                     pnl.add(new JLabel("3D Seçeneği:"));
                     pnl.add(new JCheckBox("Evet, 3D uyumlu"));
                     return pnl;
-
                 case "Tiyatro":
                     pnl.add(new JLabel("Perde Sayısı:"));
                     pnl.add(new JTextField());
                     pnl.add(new JLabel("Yazar:"));
                     pnl.add(new JTextField());
                     return pnl;
-
                 case "Konser":
                     pnl.add(new JLabel("Sanatçı/Grup:"));
                     pnl.add(new JTextField());
                     pnl.add(new JLabel("Müzik Türü (Pop, Rock vb.):"));
                     pnl.add(new JTextField());
                     return pnl;
-
                 case "StandUp":
                     pnl.add(new JLabel("Komedyen:"));
                     pnl.add(new JTextField());
                     pnl.add(new JLabel("Yaş Sınırı (+18 vb):"));
                     pnl.add(new JTextField());
                     return pnl;
-
                 default:
                     return null;
             }
         }
     }
 }
-
