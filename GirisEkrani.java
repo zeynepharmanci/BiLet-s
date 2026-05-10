@@ -12,6 +12,7 @@ public class GirisEkrani extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         showAnaGiris();
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
     }
 
     private JPanel cerceveliPanelUret(int satir, int sutun) {
