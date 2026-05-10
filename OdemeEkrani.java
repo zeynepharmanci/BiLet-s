@@ -10,25 +10,40 @@ public class OdemeEkrani extends JFrame {
 
     public OdemeEkrani(double tutar, ArrayList<String> koltuklar, JFrame koltukEkrani, String biletTuru) {
         setTitle("BiLets - Güvenli Ödeme");
-        setSize(400, 500);
+        setSize(500, 650); 
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
-        setLayout(new BorderLayout(15, 15));
+
+        setLayout(new GridBagLayout()); 
+
+        getContentPane().setBackground(new Color(255, 240, 245)); 
+
+        JPanel pnlKart = new JPanel(new BorderLayout(10, 15));
+        pnlKart.setBackground(Color.WHITE);
+        pnlKart.setPreferredSize(new Dimension(380, 520)); 
+
+        pnlKart.setBorder(BorderFactory.createCompoundBorder(
+            BorderFactory.createLineBorder(new Color(255, 0, 127), 2, true),
+            BorderFactory.createEmptyBorder(20, 25, 20, 25)
+        ));
 
         JPanel pnlOzet = new JPanel(new GridLayout(2, 1));
-        pnlOzet.setBackground(new Color(255, 240, 245));
-        pnlOzet.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 20));
+        pnlOzet.setOpaque(false);
+        pnlOzet.setBorder(BorderFactory.createEmptyBorder(0, 0, 10, 0));
         
-        JLabel lblTutar = new JLabel("Toplam Tutar: " + tutar + " TL (" + biletTuru + ")");
-        lblTutar.setFont(new Font("Segoe UI", Font.BOLD, 18));
-        JLabel lblKoltuk = new JLabel("Koltuklar: " + String.join(", ", koltuklar));
+        JLabel lblTutar = new JLabel("Toplam: " + tutar + " TL (" + biletTuru + ")", SwingConstants.CENTER);
+        lblTutar.setFont(new Font("Segoe UI", Font.BOLD, 22));
+        lblTutar.setForeground(new Color(255, 0, 127)); 
+        
+        JLabel lblKoltuk = new JLabel("Koltuklar: " + String.join(", ", koltuklar), SwingConstants.CENTER);
+        lblKoltuk.setFont(new Font("Segoe UI", Font.PLAIN, 14));
         
         pnlOzet.add(lblTutar);
         pnlOzet.add(lblKoltuk);
-        add(pnlOzet, BorderLayout.NORTH);
+        pnlKart.add(pnlOzet, BorderLayout.NORTH);
 
         JPanel pnlForm = new JPanel(new GridLayout(8, 1, 5, 5));
-        pnlForm.setBorder(BorderFactory.createEmptyBorder(20, 40, 20, 40));
+        pnlForm.setOpaque(false);
 
         JTextField txtSahibi = new JTextField();
         JTextField txtKartNo = new JTextField();
@@ -44,27 +59,33 @@ public class OdemeEkrani extends JFrame {
         pnlForm.add(new JLabel("CVV:"));
         pnlForm.add(txtCVV);
 
-        add(pnlForm, BorderLayout.CENTER);
+        pnlKart.add(pnlForm, BorderLayout.CENTER);
 
-        JPanel pnlAlt = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 15));
+        JPanel pnlAlt = new JPanel(new FlowLayout(FlowLayout.CENTER, 15, 10));
+        pnlAlt.setOpaque(false);
         
-        JButton btnIptal = new JButton("Geri Dön");
+        JButton btnIptal = new JButton("<- İptal");
+        btnIptal.setBackground(Color.LIGHT_GRAY);
+        btnIptal.setForeground(Color.BLACK);
+        btnIptal.setFocusPainted(false);
+        btnIptal.setPreferredSize(new Dimension(100, 40));
+
         btnIptal.addActionListener(e -> {
             koltukEkrani.setVisible(true);
             this.dispose();
         });
 
         JButton btnOde = new JButton("Ödemeyi Onayla");
-        btnOde.setBackground(new Color(34, 139, 34));
+        btnOde.setBackground(new Color(255, 0, 127)); 
         btnOde.setForeground(Color.WHITE);
-        btnOde.setPreferredSize(new Dimension(150, 40));
+        btnOde.setFocusPainted(false);
+        btnOde.setPreferredSize(new Dimension(180, 40));
+        btnOde.setFont(new Font("Segoe UI", Font.BOLD, 14));
 
         btnOde.addActionListener(e -> {
-
             if (txtKartNo.getText().length() < 16 || txtCVV.getText().length() < 3) {
                 JOptionPane.showMessageDialog(this, "Lütfen kart bilgilerini eksiksiz giriniz!", "Hata", JOptionPane.ERROR_MESSAGE);
             } else {
-
                 try {
                     String etkinlikAdi = koltukEkrani.getTitle().replace(" - Koltuk Seçimi", "");
 
@@ -113,7 +134,9 @@ public class OdemeEkrani extends JFrame {
 
         pnlAlt.add(btnIptal);
         pnlAlt.add(btnOde);
-        add(pnlAlt, BorderLayout.SOUTH);
+        pnlKart.add(pnlAlt, BorderLayout.SOUTH);
+
+        add(pnlKart); 
 
         setVisible(true);
     }
