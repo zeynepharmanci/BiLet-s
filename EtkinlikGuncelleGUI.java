@@ -6,37 +6,54 @@ import java.awt.*;
 public class EtkinlikGuncelleGUI extends JFrame {
 
     private JTextField txtAd, txtSehir, txtFiyat;
-    private Event guncellenecekEvent; // Üzerinde değişiklik yapacağımız nesneyi burada tutuyoruz
+    private Event guncellenecekEvent; 
 
     public EtkinlikGuncelleGUI(Event event) {
         this.guncellenecekEvent = event;
 
         setTitle("Etkinlik Güncelle - " + event.getEventname());
-        setSize(400, 400);
+        setSize(500, 500); 
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
-        setLayout(new GridLayout(5, 2, 10, 10));
+
+        setLayout(new GridBagLayout());
         getContentPane().setBackground(new Color(255, 240, 245));
 
-        add(new JLabel(" Etkinlik Adı:"));
+        JPanel pnlMerkez = new JPanel(new GridLayout(4, 2, 10, 15));
+        pnlMerkez.setBackground(Color.WHITE); 
+        pnlMerkez.setPreferredSize(new Dimension(400, 250)); 
+        
+        pnlMerkez.setBorder(BorderFactory.createCompoundBorder(
+            BorderFactory.createLineBorder(new Color(255, 0, 127), 2, true),
+            BorderFactory.createEmptyBorder(20, 25, 20, 25)
+        ));
+
+        pnlMerkez.add(new JLabel("Etkinlik Adı:"));
         txtAd = new JTextField(event.getEventname()); 
-        add(txtAd);
+        pnlMerkez.add(txtAd);
 
-        add(new JLabel(" Şehir:"));
+        pnlMerkez.add(new JLabel("Şehir:"));
         txtSehir = new JTextField(event.getCity());
-        add(txtSehir);
+        pnlMerkez.add(txtSehir);
 
-        add(new JLabel(" Fiyat (TL):"));
-        txtFiyat = new JTextField(String.valueOf(event.getPrice()));
-        add(txtFiyat);
+        pnlMerkez.add(new JLabel("Fiyat (TL):"));
+        txtFiyat = new JTextField(String.valueOf(event.getPrice())); 
+        pnlMerkez.add(txtFiyat);
 
-        JButton btnIptal = new JButton("İptal");
-        JButton btnKaydet = new JButton("Değişiklikleri Kaydet");
+        JButton btnIptal = new JButton("<- İptal");
+        btnIptal.setBackground(Color.LIGHT_GRAY);
+        btnIptal.setForeground(Color.BLACK);
+        btnIptal.setFocusPainted(false);
+        
+        JButton btnKaydet = new JButton("Güncelle");
         btnKaydet.setBackground(new Color(255, 0, 127));
         btnKaydet.setForeground(Color.WHITE);
+        btnKaydet.setFocusPainted(false);
 
-        add(btnIptal);
-        add(btnKaydet);
+        pnlMerkez.add(btnIptal);
+        pnlMerkez.add(btnKaydet);
+
+        add(pnlMerkez);
 
         btnIptal.addActionListener(e -> {
             new YoneticiPaneliGUI().setVisible(true);
@@ -52,12 +69,12 @@ public class EtkinlikGuncelleGUI extends JFrame {
                 new DosyaYonetimi().verileriKaydet(VeriDeposu.etkinlikListesi);
 
                 JOptionPane.showMessageDialog(this, "Etkinlik başarıyla güncellendi!");
- 
+
                 new YoneticiPaneliGUI().setVisible(true);
                 this.dispose();
 
             } catch (Exception ex) {
-                JOptionPane.showMessageDialog(this, "Hata: Lütfen fiyatı sayı olarak (örn: 250.0) giriniz!", "Giriş Hatası", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Hata: Lütfen fiyatı sayı olarak giriniz!", "Giriş Hatası", JOptionPane.ERROR_MESSAGE);
             }
         });
     }
